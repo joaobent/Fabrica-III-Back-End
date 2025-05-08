@@ -7,5 +7,5 @@ const pool = mysql.createPool({
     database : 'almsfit_db'
 });
 
-const conexao = await pool.getConnection();
+// const conexao = await pool.getConnection();
 export default pool;
