@@ -17,13 +17,12 @@ export async function retornaFuncionarios() {
             funcionarios.telefone,
             formacao.formacao AS nomeFormacao,
             formacao.certificado AS nivelFormacao,
-            enderecos.cep,
-            enderecos.numeroCasa,
-            enderecos.complemento
-            
+            endereco.cep,
+            endereco.numeroCasa,
+            endereco.complemento   
         FROM funcionarios 
         INNER JOIN formacao ON funcionarios.formacao_idformacao = formacao.idformacao
-        INNER JOIN enderecos ON funcionarios.endereco_idendereco = enderecos.idendereco
+        INNER JOIN endereco ON funcionarios.endereco_idendereco = endereco.idendereco
         ORDER BY funcionarios.nome
     `;
     const resultado = await executaQuery(conexao, query);
@@ -45,51 +44,48 @@ export async function retornaFuncionariosPorNome(nome) {
 }
 
 
-async function executaQuery(conexao, query) {
-    const [rows] = await conexao.execute(query);
-    return rows;
-}
+
 
 //Frequência
 
-import pool from './conexao.js';
 
-export async function retornaFrequencias() {
-    const conexao = await pool.getConnection();
 
-    const query = `
-        SELECT 
-            idfrequencia,
-            dataEntrada,
-            dataSaida,
-            clientes_idclientes
-        FROM frequencia
-        ORDER BY dataEntrada DESC
-    `;
+// export async function retornaFrequencias() {
+//     const conexao = await pool.getConnection();
 
-    const resultado = await executaQuery(conexao, query);
-    conexao.release();
-    return resultado;
-}
+//     const query = `
+//         SELECT 
+//             idfrequencia,
+//             dataEntrada,
+//             dataSaida,
+//             clientes_idclientes
+//         FROM frequencia
+//         ORDER BY dataEntrada DESC
+//     `;
 
-export async function retornaFrequenciasPorClienteId(idCliente) {
-    const conexao = await pool.getConnection();
+//     const resultado = await executaQuery(conexao, query);
+//     conexao.release();
+//     return resultado;
+// }
 
-    const query = `
-        SELECT 
-            idfrequencia,
-            dataEntrada,
-            dataSaida,
-            clientes_idclientes
-        FROM frequencia
-        WHERE clientes_idclientes = ?
-        ORDER BY dataEntrada DESC
-    `;
+// export async function retornaFrequenciasPorClienteId(idCliente) {
+//     const conexao = await pool.getConnection();
 
-    const [rows] = await conexao.execute(query, [idCliente]);
-    conexao.release();
-    return rows;
-}
+//     const query = `
+//         SELECT 
+//             idfrequencia,
+//             dataEntrada,
+//             dataSaida,
+//             clientes_idclientes
+//         FROM frequencia
+//         WHERE clientes_idclientes = ?
+//         ORDER BY dataEntrada DESC
+//     `;
+
+//     const [rows] = await conexao.execute(query, [idCliente]);
+//     conexao.release();
+//     return rows;
+// }
 
 async function executaQuery(conexao, query) {
     const [rows] = await conexao.execute(query);

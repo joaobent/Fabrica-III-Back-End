@@ -2,7 +2,7 @@
 
 
 import express from 'express';
-import pool from './servico/conexao.js';
+// import pool from './servico/conexao.js';
 import {retornaFuncionarios,
     retornaFuncionariosPorNome} from "./servico/retorna_servico.js"
 
@@ -30,7 +30,7 @@ app.get('/funcionarios', async (req, res) => {
     }
 });
 
-app.listen(20002, () => {
-    const agora = new Date();
-    console.log("Servidor de funcionários rodando em: " + agora);
+app.listen(9000, () => {
+    const data = new Date();
+    console.log("Servidor de funcionários rodando em: " + data);
 });
