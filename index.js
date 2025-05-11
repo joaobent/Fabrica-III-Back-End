@@ -7,7 +7,7 @@ import express from 'express';
 // import pool from './servico/conexao.js';
 import {retornaFuncionarios,
     retornaFuncionariosPorNome, retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js"
-
+import { cadastrarFuncionario } from './servico/funcoesDaAna.js';
 const app = express();
 app.use(express.json()); 
 

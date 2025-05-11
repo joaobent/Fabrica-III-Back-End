@@ -34,7 +34,7 @@ export async function cadastrarFuncionario(dados) {
         const [resultadoFuncionario] = await conexao.execute(`
             INSERT INTO funcionarios (
                 nome, senha, cpf, dataDeNascimento,
-                email, fotoPerfil,
+                email, telefone, fotoPerfil,
                 endereco_idendereco, formacao_idformacao
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `, [
@@ -60,7 +60,3 @@ export async function cadastrarFuncionario(dados) {
 }
 
 
-async function executaQuery(conexao, query) {
-    const [rows] = await conexao.execute(query);
-    return rows;
-}
