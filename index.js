@@ -5,6 +5,7 @@ import express from 'express';
 // import pool from './servico/conexao.js';
 import {retornaFuncionarios,
     retornaFuncionariosPorNome, retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js"
+import {cadastrarFuncionario} from "./servico/funcoesDaAna.js"
 
 const app = express();
 app.use(express.json()); 
@@ -60,7 +61,17 @@ app.get('/frequencia/:id', async (req, res) => {
         res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
 });
+app.post('/funcionarios', async (req, res) => {
+    const dados = req.body;
 
+    try {
+        const resultado = await cadastrarFuncionario(dados);
+        res.status(201).json({ mensagem: 'Funcionário cadastrado com sucesso', id: resultado.insertId });
+    } catch (erro) {
+        console.error("Erro ao cadastrar funcionário:", erro);
+        res.status(500).json({ erro: 'Erro ao cadastrar funcionário' });
+    }
+});
 
 app.listen(9000, () => {
     const data = new Date();
