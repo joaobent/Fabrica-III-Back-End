@@ -61,6 +61,18 @@ app.get('/frequencia/:id', async (req, res) => {
     }
 });
 
+// Rota para criar uma nova frequência
+app.post('/frequencia', async (req, res) => {
+    const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
+    try {
+        const id = await cadastraFrequencia(clientes_idclientes, dataEntrada, dataSaida);
+        res.status(201).json({ mensagem: 'Frequência criada com sucesso', id });
+    } catch (erro) {
+        console.error('Erro ao criar frequência:', erro);
+        res.status(500).json({ mensagem: 'Erro interno no servidor' });
+    }
+});
+
 
 app.listen(9000, () => {
     const data = new Date();
