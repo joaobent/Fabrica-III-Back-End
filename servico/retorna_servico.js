@@ -81,3 +81,7 @@ export async function retornaFrequenciasPorClienteId(idCliente) {
     conexao.release();
     return rows;
 }
+async function executaQuery(conexao, query) {
+    const [rows] = await conexao.execute(query);
+    return rows;
+}
