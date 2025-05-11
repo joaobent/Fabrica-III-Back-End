@@ -44,11 +44,7 @@ export async function retornaFuncionariosPorNome(nome) {
 }
 
 
-
-
-//Frequência
-
-
+// frequencia
 
 export async function retornaFrequencias() {
     const conexao = await pool.getConnection();
@@ -63,9 +59,9 @@ export async function retornaFrequencias() {
         ORDER BY dataEntrada DESC
     `;
 
-    const resultado = await executaQuery(conexao, query);
+    const [rows] = await conexao.execute(query);
     conexao.release();
-    return resultado;
+    return rows;
 }
 
 export async function retornaFrequenciasPorClienteId(idCliente) {
@@ -84,10 +80,5 @@ export async function retornaFrequenciasPorClienteId(idCliente) {
 
     const [rows] = await conexao.execute(query, [idCliente]);
     conexao.release();
-    return rows;
-}
-
-async function executaQuery(conexao, query) {
-    const [rows] = await conexao.execute(query);
     return rows;
 }
