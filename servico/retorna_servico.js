@@ -29,7 +29,6 @@ export async function retornaFuncionarios() {
     conexao.release();
     return resultado;
 }
-
 export async function retornaFuncionariosPorNome(nome) {
     const conexao = await pool.getConnection();
     const query = `
