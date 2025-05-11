@@ -2,15 +2,17 @@
 
 import pool from "./conexao.js";
 
-export async function cadastraFrequencia(dataEntrada, dataSaida, clientes_idclientes) {
+import { cadastraFrequencia } from "./servico/cadastra_servico.js";
+
+export async function cadastraFrequencia(clientes_idclientes, dataEntrada, dataSaida) {
     const conexao = await pool.getConnection();
 
     const query = `
-        INSERT INTO frequencia (dataEntrada, dataSaida, clientes_idclientes)
+        INSERT INTO frequencia (clientes_idclientes, dataEntrada, dataSaida)
         VALUES (?, ?, ?)
     `;
 
-    const [resultado] = await conexao.execute(query, [dataEntrada, dataSaida, clientes_idclientes]);
+    const [resultado] = await conexao.execute(query, [ clientes_idclientes, dataEntrada, dataSaida]);
     conexao.release();
     return resultado.insertId;
 }
