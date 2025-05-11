@@ -1,5 +1,7 @@
 // Aqui serÃo colocadas todos os endpoints da API
-
+import multer from 'multer';
+const storage = multer.memoryStorage(); // salva o arquivo em buffer
+const upload = multer({ storage: storage });
 
 import express from 'express';
 // import pool from './servico/conexao.js';
@@ -61,8 +63,40 @@ app.get('/frequencia/:id', async (req, res) => {
         res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
 });
-app.post('/funcionarios', async (req, res) => {
-    const dados = req.body;
+app.post('/funcionarios', upload.single('certificado'), async (req, res) => {
+    const {
+        nome,
+        senha,
+        cpf,
+        dataDeNascimento,
+        email,
+        telefone,
+        cep,
+        numeroCasa,
+        complemento,
+        formacao
+    } = req.body;
+
+    const certificadoBuffer = req.file?.buffer;
+
+    const dados = {
+        nome,
+        senha,
+        cpf,
+        dataDeNascimento,
+        email,
+        telefone,
+        fotoPerfil: telefone, // ajustar se necessário
+        endereco: {
+            cep,
+            numeroCasa,
+            complemento
+        },
+        formacao: {
+            formacao,
+            certificado: certificadoBuffer
+        }
+    };
 
     try {
         const resultado = await cadastrarFuncionario(dados);
