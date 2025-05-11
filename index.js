@@ -4,9 +4,10 @@
 import express from 'express';
 // import pool from './servico/conexao.js';
 import {retornaFuncionarios,
-    retornaFuncionariosPorNome} from "./servico/retorna_servico.js"
+    retornaFuncionariosPorNome, cadastrarFuncionario} from "./servico/funcoesDaAna.js"
 
 const app = express();
+app.use(express.json()); 
 
 app.get('/funcionarios', async (req, res) => {
     let resultado;
@@ -27,6 +28,18 @@ app.get('/funcionarios', async (req, res) => {
     } catch (erro) {
         console.error("Erro ao buscar funcionários:", erro);
         res.status(500).json({ mensagem: "Erro interno no servidor" });
+    }
+});
+
+app.post("/funcionarios", async (req, res) => {
+    try {
+        const dados = req.body;
+
+        const resultado = await cadastrarFuncionario(dados);
+        res.status(201).json({ mensagem: "Funcionário cadastrado com sucesso!", id: resultado.insertId });
+    } catch (erro) {
+        console.error("Erro ao cadastrar funcionário:", erro);
+        res.status(500).json({ erro: "Erro ao cadastrar funcionário." });
     }
 });
 
