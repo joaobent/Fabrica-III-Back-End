@@ -3,7 +3,9 @@ import express from 'express';
 const routerFrequencia= express.Router();
 import {retornaFrequencias, retornaFrequenciasPorClienteId} from "../servicos/frequenciaServicos/buscar.js";
 import { cadastraFrequencia } from "../servicos/frequenciaServicos/adicionar.js";
-import { atualizaFrequencia } from "../servicos/frequenciaServicos/atualizar.js";
+import { atualizaFrequencia } from "../servicos/frequenciaServicos/editar.js";
+import { deletarFrequencia } from '../servicos/frequenciaServicos/deletar.js';
+
 
 import bodyParser from 'body-parser'; // Importando o body-parser
 
@@ -71,7 +73,6 @@ routerFrequencia.post('/', async (req, res) => {
 
 
 
-
 // Rota para atualizar uma frequência existente
 routerFrequencia.put('/:id', async (req, res) => {
     const idfrequencia = req.params.id;
@@ -95,6 +96,29 @@ routerFrequencia.put('/:id', async (req, res) => {
     }
 });
 
+
+
+
+routerFrequencia.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  if (isNaN(id) || id <= 0) {
+    return res.status(400).json({ mensagem: 'ID inválido.' });
+  }
+
+  try {
+    const resultado = await deletarFrequencia(id);
+
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ mensagem: 'Frequência não encontrada.' });
+    }
+
+    res.status(200).json({ mensagem: 'Frequência deletada com sucesso.' });
+  } catch (erro) {
+    console.error('Erro ao deletar frequência:', erro);
+    res.status(500).json({ mensagem: 'Erro interno no servidor.' });
+  }
+});
 
 
 

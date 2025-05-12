@@ -1,13 +1,15 @@
 // deleta_frequencia.js
 
-export async function deletaFrequencia(idfrequencia) {
-    const conexao = await pool.getConnection();
+import pool from '../../../conexao.js';
 
-    const query = `
-        DELETE FROM frequencia WHERE idfrequencia = ?
-    `;
+export async function deletarFrequencia(id) {
+  const conexao = await pool.getConnection();
 
-    const [resultado] = await conexao.execute(query, [idfrequencia]);
-    conexao.release();
-    return resultado.affectedRows > 0;
+  const query = `
+    DELETE FROM frequencia WHERE idfrequencia = ?
+  `;
+
+  const [resultado] = await conexao.execute(query, [id]);
+  conexao.release();
+  return resultado;
 }
