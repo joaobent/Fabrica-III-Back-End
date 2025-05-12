@@ -6,8 +6,7 @@ import express from 'express';
 import {retornaFuncionarios, retornaFuncionariosPorNome, retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js";
 // import { cadastraFrequencia } from "./servico/cadastra_servico.js";
 =======
-import { retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js"
->>>>>>> b1647a21fb62fc91e171e4b27fac28026db2065c
+
 
 const app = express();
 
