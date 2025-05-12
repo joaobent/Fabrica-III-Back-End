@@ -1,12 +1,14 @@
-import mysql from 'mysql2/promise';
+import mysql from "mysql2/promise"
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const pool = mysql.createPool({
-    host     : 'icskko8k08w0ss88kws80s0o',
-    port: 3306,
-    user     : 'almsfit',
-    password : '12345678',
-    database : 'almsfit_db'
-});
+    host: process.env.HOST,
+    port : process.env.PORT,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
+})
 
-// const conexao = await pool.getConnection();
 export default pool;
