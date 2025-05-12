@@ -2,8 +2,6 @@
 
 import pool from "./conexao.js";
 
-import { cadastraFrequencia } from "./servico/cadastra_servico.js";
-
 export async function cadastraFrequencia(clientes_idclientes, dataEntrada, dataSaida) {
     const conexao = await pool.getConnection();
 
