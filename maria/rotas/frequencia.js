@@ -1,23 +1,12 @@
-// Aqui serÃo colocadas todos os endpoints da API
-
 import express from 'express';
 // import pool from './servico/conexao.js';
-
+const routerFrequencia= express.Router();
 import {retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js";
 // import { cadastraFrequencia } from "./servico/cadastra_servico.js";
-
-
 
 const app = express();
 
 app.use(express.json()); 
-
-import routerFuncionario from './ana/rotas/funcionarios.js';
-import routerFrequencia from './maria/rotas/frequencia.js';
-
-app.use('/funcionarios', routerFuncionario)
-app.use('/frequencia', routerFrequencia)
-
 
 app.get('/frequencia', async (req, res) => {
     try {
