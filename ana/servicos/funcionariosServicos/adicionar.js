@@ -1,11 +1,5 @@
-import pool from "./conexao.js";
+import pool from "../../../conexao.js";
 
-//Funcionários
-
-// GET
-
-
-// POST
 
 export async function cadastrarFuncionario(dados) {
     const conexao = await pool.getConnection();
@@ -29,12 +23,11 @@ export async function cadastrarFuncionario(dados) {
         `, [dados.formacao.formacao, dados.formacao.certificado]);
 
         const formacaoId = resultadoFormacao.insertId;
-
         // 3. Inserir FUNCIONÁRIO com os IDs acima
         const [resultadoFuncionario] = await conexao.execute(`
             INSERT INTO funcionarios (
                 nome, senha, cpf, dataDeNascimento,
-                email, fotoPerfil,
+                email, telefone, fotoPerfil,
                 endereco_idendereco, formacao_idformacao
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `, [
@@ -58,5 +51,3 @@ export async function cadastrarFuncionario(dados) {
         conexao.release();
     }
 }
-
-
