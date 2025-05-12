@@ -1,6 +1,6 @@
 // Aqui serão colocadas todas as funções para LISTAR(GET) as tabelas 
 
-import pool from "./conexao.js";
+import pool from "../conexao.js";
 
 //Funcionários
 
