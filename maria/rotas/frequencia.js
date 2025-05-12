@@ -1,14 +1,10 @@
 import express from 'express';
 // import pool from './servico/conexao.js';
 const routerFrequencia= express.Router();
-import {retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js";
+import {retornaFrequencias, retornaFrequenciasPorClienteId} from "../servicos/frequenciaServicos/buscar.js";
 // import { cadastraFrequencia } from "./servico/cadastra_servico.js";
 
-const app = express();
-
-app.use(express.json()); 
-
-app.get('/frequencia', async (req, res) => {
+routerFrequencia.get('/', async (req, res) => {
     try {
         const frequencias = await retornaFrequencias();
         if (frequencias.length > 0) {
@@ -23,7 +19,7 @@ app.get('/frequencia', async (req, res) => {
 });
 
 // Rota para buscar uma frequência por ID
-app.get('/frequencia/:id', async (req, res) => {
+routerFrequencia.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const frequencia = await retornaFrequenciasPorClienteId(id);
@@ -41,7 +37,7 @@ app.get('/frequencia/:id', async (req, res) => {
 
 
 //Rota para criar uma nova frequência
-app.post('/frequencia', async (req, res) => {
+routerFrequencia.post('/', async (req, res) => {
     console.log("req.body recebido:", req.body); // Ajuda a ver o que está chegando
 
     const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
@@ -59,10 +55,4 @@ app.post('/frequencia', async (req, res) => {
     }
 });
 
-
-
-
-app.listen(9000, () => {
-    const data = new Date();
-    console.log("Servidor de funcionários rodando em: " + data);
-});
+export default routerFrequencia
