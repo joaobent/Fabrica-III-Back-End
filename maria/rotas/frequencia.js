@@ -2,7 +2,7 @@ import express from 'express';
 // import pool from './servico/conexao.js';
 const routerFrequencia= express.Router();
 import {retornaFrequencias, retornaFrequenciasPorClienteId} from "../servicos/frequenciaServicos/buscar.js";
-// import { cadastraFrequencia } from "./servico/cadastra_servico.js";
+import { cadastraFrequencia } from "../servicos/frequenciaServicos/adicionar.js";
 
 routerFrequencia.get('/', async (req, res) => {
     try {
@@ -33,7 +33,6 @@ routerFrequencia.get('/:id', async (req, res) => {
         res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
 });
-
 
 
 //Rota para criar uma nova frequência
