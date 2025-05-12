@@ -23,7 +23,6 @@ export async function cadastrarFuncionario(dados) {
         `, [dados.formacao.formacao, dados.formacao.certificado]);
 
         const formacaoId = resultadoFormacao.insertId;
-
         // 3. Inserir FUNCIONÁRIO com os IDs acima
         const [resultadoFuncionario] = await conexao.execute(`
             INSERT INTO funcionarios (
