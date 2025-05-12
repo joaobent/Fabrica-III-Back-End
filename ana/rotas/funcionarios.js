@@ -29,48 +29,55 @@ routerFuncionario.get('/', async (req, res) => {
     }
 });
 
-routerFuncionario.post('/', upload.single('certificado'), async (req, res) => {
-    const {
-        nome,
-        senha,
-        cpf,
-        dataDeNascimento,
-        email,
-        telefone,
-        cep,
-        numeroCasa,
-        complemento,
-        formacao
-    } = req.body;
+routerFuncionario.post('/', upload.fields([
+  { name: 'certificado', maxCount: 1 },
+  { name: 'fotoPerfil', maxCount: 1 }
+]), async (req, res) => {
+  const {
+    nome,
+    senha,
+    cpf,
+    dataDeNascimento,
+    email,
+    telefone,
+    cep,
+    numeroCasa,
+    complemento,
+    formacao
+  } = req.body;
 
-    const certificadoBuffer = req.file?.buffer;
+  const certificadoBuffer = req.files?.certificado?.[0]?.buffer;
+  const fotoPerfilBuffer = req.files?.fotoPerfil?.[0]?.buffer;
 
-    const dados = {
-        nome,
-        senha,
-        cpf,
-        dataDeNascimento,
-        email,
-        telefone,
-        fotoPerfil: telefone, // ajustar se necessário
-        endereco: {
-            cep,
-            numeroCasa,
-            complemento
-        },
-        formacao: {
-            formacao,
-            certificado: certificadoBuffer
-        }
-    };
-
-    try {
-        const resultado = await cadastrarFuncionario(dados);
-        res.status(201).json({ mensagem: 'Funcionário cadastrado com sucesso', id: resultado.insertId });
-    } catch (erro) {
-        console.error("Erro ao cadastrar funcionário:", erro);
-        res.status(500).json({ erro: 'Erro ao cadastrar funcionário' });
+  const dados = {
+    nome,
+    senha,
+    cpf,
+    dataDeNascimento,
+    email,
+    telefone,
+    fotoPerfil: fotoPerfilBuffer,
+    endereco: {
+      cep,
+      numeroCasa,
+      complemento
+    },
+    formacao: {
+      formacao,
+      certificado: certificadoBuffer
     }
+  };
+
+  try {
+    const resultado = await cadastrarFuncionario(dados);
+    res.status(201).json({
+      mensagem: 'Funcionário cadastrado com sucesso',
+      id: resultado.insertId
+    });
+  } catch (erro) {
+    console.error("Erro ao cadastrar funcionário:", erro);
+    res.status(500).json({ erro: 'Erro ao cadastrar funcionário' });
+  }
 });
 
 export default routerFuncionario;
