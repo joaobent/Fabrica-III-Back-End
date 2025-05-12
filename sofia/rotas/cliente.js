@@ -1,20 +1,21 @@
-import express from "express";
-import {
-	retornaClientes,
-	retornaClientesPorNome,
-	adicionaCliente,
-} from "./servico/clientes_servico.js";
+import express from 'express';
+import multer from 'multer';
+const storage = multer.memoryStorage(); // salva o arquivo em buffer
+const upload = multer({ storage: storage });
+const routerCliente= express.Router();
+import { retornaCliente, retornaClientePorNome } from '../servico/buscar.js';
+import { cadastrarCliente } from '../servico/adicionar.js';
 
-const app = express();
-app.use(express.json());
-
-app.get("/clientes", async (req, res) => {
+routerCliente.get('/', async (req, res) => {
+	let resultado;
 	const nome = req.query.nome;
 
 	try {
-		const resultado = nome
-			? await retornaClientesPorNome(nome)
-			: await retornaClientes();
+		if (!nome) {
+			resultado = await retornaCliente();
+		} else if (nome) {
+			resultado = await retornaClientePorNome(nome);
+		} 
 
 		if (resultado.length > 0) {
 			res.json(resultado);
@@ -22,55 +23,62 @@ app.get("/clientes", async (req, res) => {
 			res.status(404).json({ mensagem: "Nenhum cliente encontrado" });
 		}
 	} catch (erro) {
-		console.error("Erro ao buscar clientes:", erro);
+		console.error("Erro ao buscar cliente:", erro);
+		console.log(resultado)
 		res.status(500).json({ mensagem: "Erro interno no servidor" });
 	}
 });
-app.post("/clientes", async (req, res) => {
-	const {
-		nome,
-		senha,
-		cpf,
-		dataDeNascimento,
-		email,
-		telefone,
-		contatoDeEmergencia,
-		cep,
-		numeroCasa,
-		complemento,
-		peso,
-		altura,
-		sexo,
-		objetivo,
-	} = req.body;
 
-	const cliente = {
-		nome,
-		senha,
-		cpf,
-		dataDeNascimento,
-		email,
-		telefone,
-		contatoDeEmergencia,
-		endereco: { cep, numeroCasa, complemento },
-		peso,
-		altura,
-		sexo,
-		objetivo,
-	};
+routerCliente.post('/', upload.fields([
+  { name: 'fotoPerfil', maxCount: 1 }
+]), async (req, res) => {
+  const {
+	nome,
+	cpf,
+	dataDeNascimento,
+	email,
+	telefone,
+	contatoDeEmergencia,
+	cep,
+	numeroCasa,
+	complemento,
+	peso,
+	altura,
+	sexo,
+	objetivo,
+  } = req.body;
 
-	try {
-		const resultado = await adicionaCliente(cliente);
-		res.status(201).json({
-			mensagem: "Cliente cadastrado com sucesso",
-			id: resultado.insertId,
-		});
-	} catch (erro) {
-		console.error("Erro ao cadastrar cliente:", erro);
-		res.status(500).json({ erro: "Erro ao cadastrar cliente" });
-	}
+  const fotoPerfilBuffer = req.files?.fotoPerfil?.[0]?.buffer;
+
+  const dados = {
+	nome,
+	cpf,
+	dataDeNascimento,
+	email,
+	telefone,
+	contatoDeEmergencia,
+	peso,
+	altura,
+	sexo,
+	objetivo,
+	fotoPerfil: fotoPerfilBuffer,
+	endereco: {
+	  cep,
+	  numeroCasa,
+	  complemento
+	},
+  };
+
+  try {
+	const resultado = await cadastrarCliente(dados);
+	res.status(201).json({
+	  mensagem: 'Cliente cadastrado com sucesso',
+	  id: resultado.insertId
+	});
+  } catch (erro) {
+	console.error("Erro ao cadastrar cliente:", erro);
+	res.status(500).json({ erro: 'Erro ao cadastrar cliente' });
+  }
 });
 
-app.listen(9000, () => {
-	console.log("Servidor rodando em http://localhost:9000");
-});
+export default routerCliente;

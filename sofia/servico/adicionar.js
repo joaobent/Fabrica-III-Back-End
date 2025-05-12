@@ -1,60 +1,51 @@
-import pool from "./conexao.js";
+import pool from "../../../conexao.js";
 
-// Retorna todos os clientes
-export async function retornaClientes() {
-	const conexao = await pool.getConnection();
-	const [resultado] = await conexao.execute(`
-    SELECT * FROM clientes ORDER BY nome
-  `);
-	conexao.release();
-	return resultado;
-}
 
-export async function retornaClientesPorNome(nome) {
-	const conexao = await pool.getConnection();
-	const [resultado] = await conexao.execute(
-		`
-    SELECT * FROM clientes WHERE nome LIKE ?
-  `,
-		[`%${nome}%`]
-	);
-	conexao.release();
-	return resultado;
-}
+export async function cadastrarCliente(dados) {
+    const conexao = await pool.getConnection();
+    console.log("Dados recebidos para cadastro:", dados);
 
-export async function adicionaCliente(cliente) {
-	const conexao = await pool.getConnection();
+    try {
+        await conexao.beginTransaction();
 
-	const query = `
-    INSERT INTO clientes (
-      nome, senha, cpf, dataDeNascimento, email,
-      telefone, contatoDeEmergencia, endereco,
-      peso, altura, sexo, objetivo
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+        // 1. Inserir ENDEREÇO
+        const [resultadoEndereco] = await conexao.execute(`
+            INSERT INTO endereco (cep, numeroCasa, complemento)
+            VALUES (?, ?, ?)
+        `, [dados.endereco.cep, dados.endereco.numeroCasa, dados.endereco.complemento]);
 
-	const values = [
-		cliente.nome,
-		cliente.senha,
-		cliente.cpf,
-		cliente.dataDeNascimento,
-		cliente.email,
-		cliente.telefone,
-		cliente.contatoDeEmergencia,
-		cliente.endereco,
-		cliente.peso,
-		cliente.altura,
-		cliente.sexo,
-		cliente.objetivo,
-	];
+        const enderecoId = resultadoEndereco.insertId;
 
-	try {
-		const [resultado] = await conexao.execute(query, values);
-		conexao.release();
-		return resultado;
-	} catch (erro) {
-		conexao.release();
-		throw erro;
-	}
+        // 3. Inserir FUNCIONÁRIO com os IDs acima
+        const [resultadoCliente] = await conexao.execute(`
+            INSERT INTO clientes (
+                nome, cpf, dataDeNascimento,
+                email, telefone, email, telefone, contatoDeEmergencia,
+				cep, numeroCasa, complemento, peso, altura,sexo,
+				objetivo, fotoPerfil,
+                endereco_idendereco
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `, [
+            dados.nome,
+            dados.cpf,
+            dados.dataDeNascimento,
+            dados.email,
+            dados.telefone,
+			dados.contatoDeEmergencia,
+			dados.peso,
+			dados.altura,
+			dados.sexo,
+			dados.objetivo,
+            dados.fotoPerfil,
+            enderecoId
+        ]);
+
+        await conexao.commit();
+        return resultadoCliente;
+    } catch (erro) {
+        await conexao.rollback();
+        throw erro;
+    } finally {
+        conexao.release();
+    }
 }
