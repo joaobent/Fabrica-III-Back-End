@@ -2,8 +2,12 @@
 
 import express from 'express';
 // import pool from './servico/conexao.js';
-import {retornaFuncionarios,
-    retornaFuncionariosPorNome, retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js"
+<<<<<<< HEAD
+import {retornaFuncionarios, retornaFuncionariosPorNome, retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js";
+// import { cadastraFrequencia } from "./servico/cadastra_servico.js";
+=======
+import { retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js"
+>>>>>>> b1647a21fb62fc91e171e4b27fac28026db2065c
 
 const app = express();
 
@@ -45,19 +49,24 @@ app.get('/frequencia/:id', async (req, res) => {
 
 
 
-// Rota para criar uma nova frequência
-// app.post('/frequencia', async (req, res) => {
+//Rota para criar uma nova frequência
+app.post('/frequencia', async (req, res) => {
+    console.log("req.body recebido:", req.body); // Ajuda a ver o que está chegando
 
-//     const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
+    const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
 
-//     try {
-//         const id = await cadastraFrequencia(clientes_idclientes, dataEntrada, dataSaida);
-//         res.status(201).json({ mensagem: 'Frequência criada com sucesso', id });
-//     } catch (erro) {
-//         console.error('Erro ao criar frequência:', erro);
-//         res.status(500).json({ mensagem: 'Erro interno no servidor' });
-//     }
-// });
+    if (!clientes_idclientes || !dataEntrada || !dataSaida) {
+        return res.status(400).json({ mensagem: 'Dados incompletos' });
+    }
+
+    try {
+        const id = await cadastraFrequencia(clientes_idclientes, dataEntrada, dataSaida);
+        res.status(201).json({ mensagem: 'Frequência criada com sucesso', id });
+    } catch (erro) {
+        console.error('Erro ao criar frequência:', erro);
+        res.status(500).json({ mensagem: 'Erro interno no servidor' });
+    }
+});
 
 
 
