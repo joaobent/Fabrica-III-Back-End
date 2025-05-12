@@ -3,6 +3,15 @@ import express from 'express';
 const routerFrequencia= express.Router();
 import {retornaFrequencias, retornaFrequenciasPorClienteId} from "../servicos/frequenciaServicos/buscar.js";
 import { cadastraFrequencia } from "../servicos/frequenciaServicos/adicionar.js";
+import { atualizaFrequencia } from "../servicos/frequenciaServicos/atualizar.js";
+
+import bodyParser from 'body-parser'; // Importando o body-parser
+
+
+const app = express();
+
+// ESSA LINHA É ESSENCIAL:
+app.use(express.json());
 
 routerFrequencia.get('/', async (req, res) => {
     try {
@@ -34,24 +43,59 @@ routerFrequencia.get('/:id', async (req, res) => {
     }
 });
 
+// Usando o bodyParser para lidar com JSON
+app.use(bodyParser.json());  // Isso vai garantir que o body seja interpretado corretamente
 
-//Rota para criar uma nova frequência
+// Rota POST para criação de frequência
 routerFrequencia.post('/', async (req, res) => {
-    console.log("req.body recebido:", req.body); // Ajuda a ver o que está chegando
-
+  try {
     const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
 
     if (!clientes_idclientes || !dataEntrada || !dataSaida) {
+      return res.status(400).json({ mensagem: 'Dados incompletos' });
+    }
+
+    if (isNaN(clientes_idclientes) || clientes_idclientes <= 0) {
+      return res.status(400).json({ mensagem: 'ID do cliente inválido.' });
+    }
+
+    const id = await cadastraFrequencia(clientes_idclientes, dataEntrada, dataSaida);
+
+    res.status(201).json({ mensagem: 'Frequência criada com sucesso', id });
+  } catch (erro) {
+    console.error('Erro ao cadastrar frequência:', erro);
+    res.status(500).json({ mensagem: 'Erro interno no servidor' });
+  }
+});
+
+
+
+
+
+// Rota para atualizar uma frequência existente
+routerFrequencia.put('/:id', async (req, res) => {
+    const idfrequencia = req.params.id;
+    const { dataEntrada, dataSaida, clientes_idclientes } = req.body;
+
+    if (!dataEntrada || !dataSaida || !clientes_idclientes) {
         return res.status(400).json({ mensagem: 'Dados incompletos' });
     }
 
     try {
-        const id = await cadastraFrequencia(clientes_idclientes, dataEntrada, dataSaida);
-        res.status(201).json({ mensagem: 'Frequência criada com sucesso', id });
+        const resultado = await atualizaFrequencia(idfrequencia, clientes_idclientes, dataEntrada, dataSaida);
+        
+        if (resultado.affectedRows === 0) {
+            return res.status(404).json({ mensagem: 'Frequência não encontrada' });
+        }
+
+        res.json({ mensagem: 'Frequência atualizada com sucesso' });
     } catch (erro) {
-        console.error('Erro ao criar frequência:', erro);
+        console.error('Erro ao atualizar frequência:', erro);
         res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
 });
 
-export default routerFrequencia
+
+
+
+export default routerFrequencia;
