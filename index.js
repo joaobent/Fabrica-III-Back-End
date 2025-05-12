@@ -2,8 +2,11 @@
 
 import express from 'express';
 // import pool from './servico/conexao.js';
-import { retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js";
-import { cadastraFrequencia } from "./servico/cadastra_servico.js";
+
+import {retornaFrequencias, retornaFrequenciasPorClienteId} from "./servico/retorna_servico.js";
+// import { cadastraFrequencia } from "./servico/cadastra_servico.js";
+
+
 
 const app = express();
 
