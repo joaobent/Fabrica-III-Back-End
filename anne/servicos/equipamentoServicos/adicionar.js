@@ -15,7 +15,7 @@ async function executarQuery(sql, params = []) {
 
 async function adicionarEquipamentos(nome, tipo, numeroDIncricao, descricao, marca_idmarca) {
     try{
-        const sql = `INSERT INTO equipamentos (nome, tipo, numeroDIncricao, descricao, marca_idmarca) VALUE (?, ?, ?, ?, ?);`;
+        const sql = `INSERT INTO equipamentos (nome, tipo, numeroDIncricao, descricao, marca_idmarca) VALUES (?, ?, ?, ?, ?);`;
         return await executarQuery(sql, [nome, tipo, numeroDIncricao, descricao, marca_idmarca]);
     } catch(error) {
         console.log(error)

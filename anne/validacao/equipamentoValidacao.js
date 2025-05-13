@@ -1,33 +1,61 @@
-import { apresentarEquipamentoPorNome } from '../servicos/equipamentoServicos/buscar.js';
+import { apresentarEquipamentosPorNome } from '../servicos/equipamentoServicos/buscar.js';
+import { apresentarMarcaPorId } from '../servicos/marcaServicos/buscar.js';
 
-async function validarequipamento(valor) {
-  if (typeof valor !== 'string' || valor.trim() === '') {
-    return {
-      status: false,
-      mensagem: 'Valor inválido. Deve ser uma string não vazia.',
-    };
+async function validarEquipamentos(nome, tipo, numeroDIncricao, descricao, marca_idmarca) {
+  if (!nome || typeof nome !== 'string' || nome.trim() === '') {
+    return { status: false, mensagem: 'Nome do equipamento é obrigatório e deve ser uma string válida.' };
   }
 
-  const equipamentoExistente = await apresentarEquipamentoPorNome(valor);
-  if (equipamentoExistente.length != 0) {
-    return {
-      status: false,
-      mensagem: `O equipamento "${valor}" já está cadastrado.`,
-    };
+  const equipamentoExistente = await apresentarEquipamentosPorNome(nome);
+  if (equipamentoExistente.length > 0) {
+    return { status: false, mensagem: `O equipamento "${nome}" já está cadastrado.` };
   }
 
-  return { status: true, mensagem: '' };
+  if (!tipo || typeof tipo !== 'string') {
+    return { status: false, mensagem: 'Tipo do equipamento é obrigatório e deve ser uma string.' };
+  }
+
+  if (!numeroDIncricao || typeof numeroDIncricao !== 'string') {
+    return { status: false, mensagem: 'Número de inscrição é obrigatório e deve ser uma string.' };
+  }
+
+  if (!descricao || typeof descricao !== 'string') {
+    return { status: false, mensagem: 'Descrição é obrigatória e deve ser uma string.' };
+  }
+
+  const marcaExiste = await apresentarMarcaPorId(marca_idmarca);
+  if (!marcaExiste.length) {
+    return { status: false, mensagem: `A marca com ID ${marca_idmarca} não existe.` };
+  }
+
+  return { status: true };
 }
 
-async function validarequipamentoParcial(valor) {
-  if (typeof valor !== 'string' || valor.trim() === '') {
-    return {
-      status: false,
-      mensagem: 'Valor inválido. Deve ser uma string não vazia.',
-    };
+async function validarEquipamentosParcial(nome, tipo, numeroDIncricao, descricao, marca_idmarca) {
+  if (nome && (typeof nome !== 'string' || nome.trim() === '')) {
+    return { status: false, mensagem: 'O nome deve ser uma string válida.' };
   }
 
-  return { status: true, mensagem: '' };
+  if (tipo && typeof tipo !== 'string') {
+    return { status: false, mensagem: 'O tipo deve ser uma string.' };
+  }
+
+  if (numeroDIncricao && typeof numeroDIncricao !== 'string') {
+    return { status: false, mensagem: 'O número de inscrição deve ser uma string.' };
+  }
+
+  if (descricao && typeof descricao !== 'string') {
+    return { status: false, mensagem: 'A descrição deve ser uma string.' };
+  }
+
+  if (marca_idmarca) {
+    const marcaExiste = await apresentarMarcaPorId(marca_idmarca);
+    if (!marcaExiste.length) {
+      return { status: false, mensagem: `A marca com ID ${marca_idmarca} não existe.` };
+    }
+  }
+
+  return { status: true };
 }
 
-export { validarequipamento, validarequipamentoParcial }
+export { validarEquipamentos, validarEquipamentosParcial };
