@@ -3,7 +3,7 @@ import multer from 'multer';
 const storage = multer.memoryStorage(); // salva o arquivo em buffer
 const upload = multer({ storage: storage });
 const routerCliente= express.Router();
-import { retornaCliente, retornaClientePorNome } from '../servico/buscar.js';
+import { retornaClientes, retornaClientesPorNome } from '../servico/buscar.js';
 import { cadastrarCliente } from '../servico/adicionar.js';
 
 routerCliente.get('/', async (req, res) => {
@@ -12,9 +12,9 @@ routerCliente.get('/', async (req, res) => {
 
 	try {
 		if (!nome) {
-			resultado = await retornaCliente();
+			resultado = await retornaClientes();
 		} else if (nome) {
-			resultado = await retornaClientePorNome(nome);
+			resultado = await retornaClientesPorNome(nome);
 		} 
 
 		if (resultado.length > 0) {
