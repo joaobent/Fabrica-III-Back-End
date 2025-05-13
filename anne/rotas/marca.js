@@ -34,7 +34,6 @@ routerMarca.put('/:id', async (req, res) => {
 
 routerMarca.post('/', async (req, res) => {
     const { nome } = req.body;
-    console.log(nome)
     if (!nome) {
         return res.status(400).json({ status: 'error', mensagem: 'Nome da marca é obrigatório.' });
     }
