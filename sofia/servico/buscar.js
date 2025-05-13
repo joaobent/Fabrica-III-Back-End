@@ -1,3 +1,4 @@
+//MÉTODO GET
 import pool from "../../conexao.js";
 
 async function executaQuery(conexao, query) {
@@ -12,7 +13,7 @@ export async function retornaClientes() {
 			clientes.idclientes,
 			clientes.nome,
 			clientes.cpf,
-			clientes.dataDeNascimento,
+			DATE_FORMAT(clientes.dataDeNascimento, '%Y-%m-%d') AS dataDeNascimento,  -- Formatação da data
 			clientes.email,
 			clientes.telefone,
 			clientes.contatoDeEmergencia,
@@ -32,6 +33,7 @@ export async function retornaClientes() {
 	return resultado;
 }
 
+
 export async function retornaClientesPorNome(nome) {
 	const conexao = await pool.getConnection();
 	const query = `
@@ -45,4 +47,15 @@ export async function retornaClientesPorNome(nome) {
 	const resultado = await executaQuery(conexao, query);
 	conexao.release();
 	return resultado;
+}
+
+export async function retornaClientePorId(id) {
+	const [rows] = await pool.execute(
+		`SELECT * FROM clientes
+		 JOIN endereco ON clientes.endereco_idendereco = endereco.idendereco
+		 WHERE clientes.idclientes = ?`,
+		[id]
+	);
+
+	return rows;
 }

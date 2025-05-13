@@ -1,3 +1,4 @@
+//MÉTODO DELETE
 import pool from "../../conexao.js";
 
 async function executaQuery(conexao, query, params = []) {

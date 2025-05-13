@@ -1,3 +1,4 @@
+// MÉTODO POST
 import pool from "../../conexao.js";
 
 export async function cadastrarCliente(dados) {
