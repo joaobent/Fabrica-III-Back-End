@@ -9,7 +9,6 @@ async function validarMarca(valor) {
   }
 
   const marcaExistente = await apresentarMarcaPorNome(valor);
-  console.log(marcaExistente.length)
   if (marcaExistente.length != 0) {
     return {
       status: false,
