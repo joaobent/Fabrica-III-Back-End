@@ -11,7 +11,6 @@ export async function retornaClientes() {
 		SELECT 
 			clientes.idclientes,
 			clientes.nome,
-			clientes.senha,
 			clientes.cpf,
 			clientes.dataDeNascimento,
 			clientes.email,

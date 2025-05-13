@@ -9,7 +9,6 @@ export async function atualizarCliente(cliente) {
 	const {
 		idclientes,
 		nome,
-		senha,
 		cpf,
 		dataDeNascimento,
 		email,
@@ -33,14 +32,14 @@ export async function atualizarCliente(cliente) {
 
 		const queryCliente = `
 			UPDATE clientes SET
-				nome = ?, senha = ?, cpf = ?, dataDeNascimento = ?, email = ?,
+				nome = ?, cpf = ?, dataDeNascimento = ?, email = ?,
 				telefone = ?, contatoDeEmergencia = ?, peso = ?, altura = ?,
 				sexo = ?, objetivo = ?
 			WHERE idclientes = ?
 		`;
 
 		const clienteParams = [
-			nome, senha, cpf, dataDeNascimento, email,
+			nome, cpf, dataDeNascimento, email,
 			telefone, contatoDeEmergencia, peso, altura,
 			sexo, objetivo, idclientes
 		];

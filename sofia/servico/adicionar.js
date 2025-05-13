@@ -7,7 +7,6 @@ export async function cadastrarCliente(dados) {
 	try {
 		await conexao.beginTransaction();
 
-		// Validação básica
 		if (!dados?.endereco?.cep || !dados.nome || !dados.cpf) {
 			throw new Error("Dados obrigatórios ausentes.");
 		}
@@ -16,9 +15,9 @@ export async function cadastrarCliente(dados) {
 			`INSERT INTO endereco (cep, numeroCasa, complemento)
 			 VALUES (?, ?, ?)`,
 			[
-				dados.endereco.cep,
-				dados.endereco.numeroCasa,
-				dados.endereco.complemento
+				dados.endereco.cep ?? null,
+				dados.endereco.numeroCasa ?? null,
+				dados.endereco.complemento ?? null
 			]
 		);
 
@@ -32,17 +31,17 @@ export async function cadastrarCliente(dados) {
 				objetivo, fotoPerfil, endereco_idendereco
 			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 			[
-				dados.nome,
-				dados.cpf,
-				dados.dataDeNascimento,
-				dados.email,
-				dados.telefone,
-				dados.contatoDeEmergencia,
-				dados.peso,
-				dados.altura,
-				dados.sexo,
-				dados.objetivo,
-				dados.fotoPerfil,
+				dados.nome ?? null,
+				dados.cpf ?? null,
+				dados.dataDeNascimento ?? null,
+				dados.email ?? null,
+				dados.telefone ?? null,
+				dados.contatoDeEmergencia ?? null,
+				dados.peso ?? null,
+				dados.altura ?? null,
+				dados.sexo ?? null,
+				dados.objetivo ?? null,
+				dados.fotoPerfil ?? null,
 				enderecoId
 			]
 		);
@@ -52,7 +51,7 @@ export async function cadastrarCliente(dados) {
 		return resultadoCliente;
 	} catch (erro) {
 		await conexao.rollback();
-		console.error("Erro ao cadastrar cliente:", erro);
+		console.error("Erro ao cadastrar cliente:", erro.message);
 		throw erro;
 	} finally {
 		conexao.release();
