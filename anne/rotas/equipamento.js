@@ -66,19 +66,26 @@ routerEquipamentos.patch('/:id', async (req, res) => {
 
 
 routerEquipamentos.post('/', async (req, res) => {
-    const { nome, tipo, numeroDIncricao, descricao, marca_idmarca } = req.body;
-    if (!nome || !tipo || !numeroDIncricao || !descricao || !marca_idmarca) {
-        return res.status(400).json({ status: 'error', mensagem: 'Nome da equipamento é obrigatório.' });
+    const { nome, tipo, numeroDeInscricao, descricao, marca_idmarca } = req.body;
+
+    if (!nome || !tipo || !numeroDeInscricao || !descricao || !marca_idmarca) {
+        return res.status(400).json({ status: 'error', mensagem: 'Todos os campos são obrigatórios.' });
     }
 
-    const nomeValido = await validarEquipamentos(nome, tipo, numeroDIncricao, descricao, marca_idmarca);
-    if (!nomeValido.status) {
-        return res.status(400).json({ status: 'error', mensagem: nomeValido.mensagem });
-    }
+    try {
+        const resultadoValidacao = await validarEquipamentos(nome, tipo, numeroDeInscricao, descricao, marca_idmarca);
+        if (!resultadoValidacao.status) {
+            return res.status(400).json({ status: 'error', mensagem: resultadoValidacao.mensagem });
+        }
 
-    await adicionarEquipamentos(nome, tipo, numeroDIncricao, descricao, marca_idmarca);
-    return res.status(201).json({ status: 'success', mensagem: 'Equipamento cadastrado com sucesso!' });
+        await adicionarEquipamentos(nome, tipo, numeroDeInscricao, descricao, marca_idmarca);
+        return res.status(201).json({ status: 'success', mensagem: 'Equipamento cadastrado com sucesso!' });
+    } catch (erro) {
+        console.error('Erro ao cadastrar equipamento:', erro);
+        return res.status(500).json({ status: 'error', mensagem: 'Erro interno do servidor.' });
+    }
 });
+
 
 routerEquipamentos.get('/', async (req, res) => {
     const { nome } = req.query;

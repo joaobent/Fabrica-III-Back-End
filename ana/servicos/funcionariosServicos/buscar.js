@@ -17,7 +17,6 @@ export async function retornaFuncionarios() {
             funcionarios.email,
             funcionarios.telefone,
             formacao.formacao AS nomeFormacao,
-            formacao.certificado AS nivelFormacao,
             endereco.cep,
             endereco.numeroCasa,
             endereco.complemento   
@@ -43,4 +42,18 @@ export async function retornaFuncionariosPorNome(nome) {
     conexao.release();
     return resultado;
 }
+
+export async function retornaFuncionarioPorid(id) {
+    const conexao = await pool.getConnection();
+    const query = `
+        SELECT 
+        funcionarios.idfuncionarios, funcionarios.nome, funcionarios.telefone, funcionarios.email 
+        FROM funcionarios 
+        WHERE funcionarios.idfuncionarios = ${id};
+    `;
+    const resultado = await executaQuery(conexao, query);
+    conexao.release();
+    return resultado;
+}
+
 

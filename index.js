@@ -13,6 +13,7 @@ import routerFormacao from './maria/rotas/rotAformacao.js';
 import routerMarca from './anne/rotas/marca.js';
 import routerCliente from './sofia/rotas/cliente.js';
 import routerEquipamentos from './anne/rotas/equipamento.js';
+import routerExercicios from './luz/rotas/exercicios.js';
 
 app.use('/funcionarios', routerFuncionario)
 app.use('/frequencia', routerFrequencia)
@@ -20,7 +21,7 @@ app.use('/formacao', routerFormacao)
 app.use('/marca', routerMarca)
 app.use('/cliente', routerCliente)
 app.use('/equipamentos', routerEquipamentos)
-
+app.use('/exercicios', routerExercicios)
 
 app.listen(9000, () => {
     const data = new Date();
