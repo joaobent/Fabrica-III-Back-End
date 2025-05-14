@@ -16,7 +16,13 @@ const SELECT_BASE = `
   SELECT
     ex.idexercicios,
     e.nome         AS nomeEquipamento,
+    ex.quantDeSeries AS quantidadeSeries,
+    ex.quantDerepeticoes AS quantidadeRepeticoes,
+    ex.diaDaSemana AS diaDaSemana,
+    ex.parteDoCorpo AS parteDoCorpo,
+    ex.clientes_idclientes AS idDoCliente,
     c.nome                AS nomeCliente,
+    ex.funcionarios_idfuncionarios AS idDoFuncionarios,
     f.nome                AS nomeFuncionario,
     m.nome                AS marcaEquipamento
   FROM exercicios ex
