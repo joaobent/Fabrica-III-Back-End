@@ -53,7 +53,7 @@ routerExercicios.get('/:id', async (req, res) => {
 // POST - Adicionar exercício
 routerExercicios.post('/', async (req, res) => {
   const {
-    quatDeSeries,
+    quantDeSeries,
     quantDeRepeticoes,
     diaDaSemana,
     parteDoCorpo,
@@ -65,7 +65,7 @@ routerExercicios.post('/', async (req, res) => {
   } = req.body;
 
   const validacao = await validarExercicio(
-    quatDeSeries,
+    quantDeSeries,
     quantDeRepeticoes,
     diaDaSemana,
     parteDoCorpo,
@@ -87,7 +87,7 @@ routerExercicios.post('/', async (req, res) => {
 
   try {
     await adicionarExercicio(
-      quatDeSeries,
+      quantDeSeries,
       quantDeRepeticoes,
       diaDaSemana,
       parteDoCorpo,
@@ -114,7 +114,7 @@ routerExercicios.patch('/:id', async (req, res) => {
   }
 
   const camposPermitidos = [
-    'quatDeSeries',
+    'quantDeSeries',
     'quantDeRepeticoes',
     'diaDaSemana',
     'parteDoCorpo',
@@ -137,7 +137,7 @@ routerExercicios.patch('/:id', async (req, res) => {
   }
 
   const validacao = await validarExercicioParcial(
-    dados.quatDeSeries,
+    dados.quantDeSeries,
     dados.quantDeRepeticoes,
     dados.diaDaSemana,
     dados.parteDoCorpo,
@@ -186,7 +186,7 @@ routerExercicios.put('/:id', async (req, res) => {
   }
 
   const {
-    quatDeSeries,
+    quantDeSeries,
     quantDeRepeticoes,
     diaDaSemana,
     parteDoCorpo,
@@ -198,7 +198,7 @@ routerExercicios.put('/:id', async (req, res) => {
   } = req.body;
 
   const validacao = await validarExercicio(
-    quatDeSeries,
+    quantDeSeries,
     quantDeRepeticoes,
     diaDaSemana,
     parteDoCorpo,
@@ -219,7 +219,7 @@ routerExercicios.put('/:id', async (req, res) => {
   }
 
   const dados = {
-    quatDeSeries,
+    quantDeSeries,
     quantDeRepeticoes,
     diaDaSemana,
     parteDoCorpo,

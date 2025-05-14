@@ -19,7 +19,7 @@ async function editarExercicio(id, dados) {
 
         const sql = `
             UPDATE exercicios SET
-                quatDeSeries = ?,
+                quantDeSeries = ?,
                 quantDeRepeticoes = ?,
                 diaDaSemana = ?,
                 parteDoCorpo = ?,
@@ -32,7 +32,7 @@ async function editarExercicio(id, dados) {
         `;
 
         const parametros = [
-            dados.quatDeSeries,
+            dados.quantDeSeries,
             dados.quantDeRepeticoes,
             dados.diaDaSemana,
             dados.parteDoCorpo,

@@ -13,10 +13,10 @@ async function executarQuery(sql, params = []) {
     }
 }
 
-async function adicionarExercicio(quatDeSeries, quantDeRepeticoes, diaDaSemana, parteDoCorpo, clientes_idclientes, funcionarios_idfuncionarios, funcionarios_formacao_idformacao, equipamentos_idequipamentos, equipamentos_marca_idmarca) {
+async function adicionarExercicio(quantDeSeries, quantDeRepeticoes, diaDaSemana, parteDoCorpo, clientes_idclientes, funcionarios_idfuncionarios, funcionarios_formacao_idformacao, equipamentos_idequipamentos, equipamentos_marca_idmarca) {
     try {
-        const sql = `INSERT INTO exercicios (quatDeSeries, quantDeRepeticoes, diaDaSemana, parteDoCorpo, clientes_idclientes, funcionarios_idfuncionarios,funcionarios_formacao_idformacao, equipamentos_idequipamentos, equipamentos_marca_idmarca) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-        return await executarQuery(sql, [quatDeSeries, quantDeRepeticoes, diaDaSemana, parteDoCorpo, clientes_idclientes, funcionarios_idfuncionarios, funcionarios_formacao_idformacao, equipamentos_idequipamentos, equipamentos_marca_idmarca]);
+        const sql = `INSERT INTO exercicios (quantDeSeries, quantDeRepeticoes, diaDaSemana, parteDoCorpo, clientes_idclientes, funcionarios_idfuncionarios,funcionarios_formacao_idformacao, equipamentos_idequipamentos, equipamentos_marca_idmarca) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+        return await executarQuery(sql, [quantDeSeries, quantDeRepeticoes, diaDaSemana, parteDoCorpo, clientes_idclientes, funcionarios_idfuncionarios, funcionarios_formacao_idformacao, equipamentos_idequipamentos, equipamentos_marca_idmarca]);
     } catch (error) {
         console.log(error)
     }
