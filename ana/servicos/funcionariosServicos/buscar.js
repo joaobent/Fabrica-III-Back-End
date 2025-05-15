@@ -1,8 +1,8 @@
 import pool from "../../../conexao.js";
 
-async function executaQuery(conexao, query) {
-    const [rows] = await conexao.execute(query);
-    return rows;
+export async function executaQuery(conexao, query, params) {
+  const [rows] = await conexao.execute(query, params);
+  return rows;
 }
 
 export async function retornaFuncionarios() {
@@ -23,7 +23,7 @@ export async function retornaFuncionarios() {
         FROM funcionarios 
         INNER JOIN formacao ON funcionarios.formacao_idformacao = formacao.idformacao
         INNER JOIN endereco ON funcionarios.endereco_idendereco = endereco.idendereco
-        ORDER BY funcionarios.nome
+        ORDER BY funcionarios.idfuncionarios
     `;
     const resultado = await executaQuery(conexao, query);
     conexao.release();
@@ -34,11 +34,17 @@ export async function retornaFuncionariosPorNome(nome) {
     const conexao = await pool.getConnection();
     const query = `
         SELECT 
-            funcionarios.nome, funcionarios.telefone, funcionarios.email 
+            funcionarios.nome, 
+            funcionarios.telefone, 
+            funcionarios.email,
+            funcionarios.cpf,
+            funcionarios.dataDeNascimento,
+            formacao.formacao AS nomeFormacao
         FROM funcionarios 
-        WHERE funcionarios.nome LIKE '%${nome}%'
+        INNER JOIN formacao ON funcionarios.formacao_idformacao = formacao.idformacao
+        WHERE funcionarios.nome LIKE ?
     `;
-    const resultado = await executaQuery(conexao, query);
+    const resultado = await executaQuery(conexao, query,[`%${nome}%`]);
     conexao.release();
     return resultado;
 }

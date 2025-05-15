@@ -5,6 +5,7 @@ const upload = multer({ storage: storage });
 const routerFuncionario= express.Router();
 import { retornaFuncionarios, retornaFuncionariosPorNome } from '../servicos/funcionariosServicos/buscar.js';
 import { cadastrarFuncionario } from '../servicos/funcionariosServicos/adicionar.js';
+import { deletarFuncionarioPorId } from '../servicos/funcionariosServicos/deletar.js';
 
 routerFuncionario.get('/', async (req, res) => {
     let resultado;
@@ -14,6 +15,9 @@ routerFuncionario.get('/', async (req, res) => {
         if (!nome) {
             resultado = await retornaFuncionarios();
         } else if (nome) {
+           if (!/[a-zA-Z]/.test(nome)) {
+                return res.status(400).json({ mensagem: "Por favor, informe um nome válido para buscar." });
+            }
             resultado = await retornaFuncionariosPorNome(nome);
         } 
 
@@ -80,4 +84,20 @@ routerFuncionario.post('/', upload.fields([
   }
 });
 
+routerFuncionario.delete('/:id', async (req, res)=> {
+  const id = req.params.id;
+
+  try {
+    const resultado = await deletarFuncionarioPorId(id);
+    
+    if (resultado.affectedRows > 0) {
+      res.json({ mensagem: 'Funcionário deletado com sucesso' });
+    } else {
+      res.status(404).json({ mensagem: 'Funcionário não encontrado' });
+    }
+  } catch (erro) {
+    console.error('Erro ao deletar funcionário:', erro);
+    res.status(500).json({ mensagem: 'Erro interno no servidor' });
+  }
+});
 export default routerFuncionario;

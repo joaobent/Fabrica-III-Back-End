@@ -25,5 +25,5 @@ app.use('/exercicios', routerExercicios)
 
 app.listen(9000, () => {
     const data = new Date();
-    console.log("Servidor de funcionários rodando em: " + data);
+    console.log("Servidor  rodando em: " + data);
 });
