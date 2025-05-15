@@ -1,12 +1,11 @@
 import express from 'express';
 // import pool from './servico/conexao.js';
 const routerFrequencia= express.Router();
-import {retornaFrequencias, retornaFrequenciasPorClienteId} from "../servicos/frequenciaServicos/buscar.js";
+import {retornaFrequencias, retornaFrequenciasPorClienteId, } from "../servicos/frequenciaServicos/buscar.js";
 import { cadastraFrequencia } from "../servicos/frequenciaServicos/adicionar.js";
 import { atualizaFrequencia } from "../servicos/frequenciaServicos/editar.js";
 import { deletarFrequencia } from '../servicos/frequenciaServicos/deletar.js';
-
-
+import { validarFrequencia, validarFrequenciaParcial, validarExistenciaFrequencia } from '../validacao/frequenciaValidacao.js';
 import bodyParser from 'body-parser'; // Importando o body-parser
 
 
@@ -16,15 +15,17 @@ const app = express();
 app.use(express.json());
 
 routerFrequencia.get('/', async (req, res) => {
+  const { id } = req.params;
+
     try {
         const frequencias = await retornaFrequencias();
-        if (frequencias.length > 0) {
-            res.json(frequencias);
-        } else {
-            res.status(404).json({ mensagem: 'Nenhuma frequência encontrada' });
-        }
+         if (!frequencias || frequencias.length === 0) {
+      return res.status(404).json({ mensagem: 'Frequência não encontrada' });
+    }
+
+    res.json(frequencias);
     } catch (erro) {
-        console.error('Erro ao buscar frequências:', erro);
+        console.error('Erro ao buscar frequências por ID:', erro);
         res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
 });
@@ -32,13 +33,19 @@ routerFrequencia.get('/', async (req, res) => {
 // Rota para buscar uma frequência por ID
 routerFrequencia.get('/:id', async (req, res) => {
     const { id } = req.params;
+
+  if (isNaN(id) || id <= 0) {
+    return res.status(400).json({ mensagem: 'ID inválido.' });
+  }
+
     try {
-        const frequencia = await retornaFrequenciasPorClienteId(id);
-        if (frequencia) {
-            res.json(frequencia);
-        } else {
-            res.status(404).json({ mensagem: 'Frequência não encontrada' });
-        }
+        const frequencias = await retornaFrequenciasPorClienteId(id);
+
+        if (!frequencias || frequencias.length === 0) {
+      return res.status(404).json({ mensagem: 'Frequência não encontrada' });
+    }
+
+    res.json(frequencias);
     } catch (erro) {
         console.error('Erro ao buscar frequência por ID:', erro);
         res.status(500).json({ mensagem: 'Erro interno no servidor' });
@@ -52,6 +59,11 @@ app.use(bodyParser.json());  // Isso vai garantir que o body seja interpretado c
 routerFrequencia.post('/', async (req, res) => {
   try {
     const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
+
+    const validacao = await validarFrequencia(clientes_idclientes, dataEntrada, dataSaida);
+    if (!validacao.status) {
+    return res.status(400).json({ mensagem: validacao.mensagem });
+  }
 
     if (!clientes_idclientes || !dataEntrada || !dataSaida) {
       return res.status(400).json({ mensagem: 'Dados incompletos' });
@@ -71,8 +83,6 @@ routerFrequencia.post('/', async (req, res) => {
 });
 
 
-
-
 // Rota para atualizar uma frequência existente
 routerFrequencia.put('/:id', async (req, res) => {
     const idfrequencia = req.params.id;
@@ -81,6 +91,25 @@ routerFrequencia.put('/:id', async (req, res) => {
     if (!dataEntrada || !dataSaida || !clientes_idclientes) {
         return res.status(400).json({ mensagem: 'Dados incompletos' });
     }
+    if (isNaN(idfrequencia) || idfrequencia <= 0) {
+    return res.status(400).json({ mensagem: 'ID inválido.' });
+  }
+
+  const existe = await validarExistenciaFrequencia(idfrequencia);
+  if (!existe.status) {
+    return res.status(404).json({ mensagem: existe.mensagem });
+  }
+
+   const validacaoNome = await validarFrequenciaParcial({ dataEntrada, dataSaida, clientes_idclientes });
+  if (!validacaoNome.status) {
+    return res.status(400).json({ mensagem: validacaoNome.mensagem });
+  }
+
+
+  const validacao = await validarFrequencia(clientes_idclientes, dataEntrada, dataSaida);
+  if (!validacao.status) {
+    return res.status(400).json({ mensagem: validacao.mensagem });
+  }
 
     try {
         const resultado = await atualizaFrequencia(idfrequencia, clientes_idclientes, dataEntrada, dataSaida);
@@ -96,14 +125,16 @@ routerFrequencia.put('/:id', async (req, res) => {
     }
 });
 
-
-
-
 routerFrequencia.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
   if (isNaN(id) || id <= 0) {
     return res.status(400).json({ mensagem: 'ID inválido.' });
+  }
+
+  const existe = await validarExistenciaFrequencia(id);
+  if (!existe.status) {
+    return res.status(404).json({ mensagem: existe.mensagem });
   }
 
   try {
@@ -119,7 +150,6 @@ routerFrequencia.delete('/:id', async (req, res) => {
     res.status(500).json({ mensagem: 'Erro interno no servidor.' });
   }
 });
-
 
 
 export default routerFrequencia;

@@ -1,9 +1,6 @@
 import pool from "../../../conexao.js";
 
-//Funcionários
-
-
-// frequencia
+// Frequencia
 
 export async function retornaFrequencias() {
     const conexao = await pool.getConnection();
@@ -19,6 +16,7 @@ export async function retornaFrequencias() {
     `;
 
     const [rows] = await conexao.execute(query);
+    
     conexao.release();
     return rows;
 }
@@ -38,10 +36,7 @@ export async function retornaFrequenciasPorClienteId(idCliente) {
     `;
 
     const [rows] = await conexao.execute(query, [idCliente]);
+
     conexao.release();
-    return rows;
-}
-async function executaQuery(conexao, query) {
-    const [rows] = await conexao.execute(query);
     return rows;
 }
