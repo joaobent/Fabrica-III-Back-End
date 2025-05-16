@@ -1,4 +1,5 @@
-import { retornaFrequencias } from '../servicos/frequenciaServicos/buscar.js';
+
+import { buscarFrequenciaPorId } from '../servicos/frequenciaServicos/buscar.js';
 
 export async function validarFrequencia(clientes_idclientes, dataEntrada, dataSaida) {
   if (!clientes_idclientes || isNaN(clientes_idclientes)) {
@@ -16,16 +17,16 @@ export async function validarFrequencia(clientes_idclientes, dataEntrada, dataSa
   return { status: true };
 }
 
-export async function validarFrequenciaParcial(clientes_idclientes, dataEntrada, dataSaida) {
-  if (clientes_idclientes && isNaN(clientes_idclientes)) {
+export async function validarFrequenciaParcial({ clientes_idclientes, dataEntrada, dataSaida }) {
+  if (clientes_idclientes !== undefined && isNaN(clientes_idclientes)) {
     return { status: false, mensagem: 'ID do cliente deve ser um número válido.' };
   }
 
-  if (dataEntrada && typeof dataEntrada !== 'string') {
+  if (dataEntrada !== undefined && typeof dataEntrada !== 'string') {
     return { status: false, mensagem: 'Data de entrada deve ser uma string válida.' };
   }
 
-  if (dataSaida && typeof dataSaida !== 'string') {
+  if (dataSaida !== undefined && typeof dataSaida !== 'string') {
     return { status: false, mensagem: 'Data de saída deve ser uma string válida.' };
   }
 
@@ -33,9 +34,10 @@ export async function validarFrequenciaParcial(clientes_idclientes, dataEntrada,
 }
 
 export async function validarExistenciaFrequencia(idfrequencia) {
-  const frequenciaExistente = await retornaFrequencias(idfrequencia);
+  const frequenciaExistente = await buscarFrequenciaPorId(idfrequencia);
   if (!frequenciaExistente.length) {
     return { status: false, mensagem: 'Frequência não encontrada para o ID informado.' };
   }
   return { status: true };
 }
+

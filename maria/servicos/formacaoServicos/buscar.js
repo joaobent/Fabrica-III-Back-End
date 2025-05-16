@@ -12,3 +12,13 @@ export async function buscarFormacao() {
   conexao.release();
   return resultado;
 }
+
+export async function buscarFormacaoPorId(id) {
+  const conexao = await pool.getConnection();
+
+  const query = 'SELECT * FROM formacao WHERE idformacao = ?';
+
+  const [rows] = await conexao.execute(query, [id]);
+  conexao.release();
+  return rows;
+}

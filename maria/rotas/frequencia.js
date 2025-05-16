@@ -1,11 +1,12 @@
 import express from 'express';
 // import pool from './servico/conexao.js';
 const routerFrequencia= express.Router();
-import {retornaFrequencias, retornaFrequenciasPorClienteId, } from "../servicos/frequenciaServicos/buscar.js";
+import { retornaFrequencias, retornaFrequenciasPorClienteId, } from "../servicos/frequenciaServicos/buscar.js";
 import { cadastraFrequencia } from "../servicos/frequenciaServicos/adicionar.js";
 import { atualizaFrequencia } from "../servicos/frequenciaServicos/editar.js";
+import { atualizaFrequenciaParcial } from '../servicos/frequenciaServicos/editartudo.js';
 import { deletarFrequencia } from '../servicos/frequenciaServicos/deletar.js';
-import { validarFrequencia, validarFrequenciaParcial, validarExistenciaFrequencia } from '../validacao/frequenciaValidacao.js';
+import { validarFrequencia, validarExistenciaFrequencia, validarFrequenciaParcial } from '../validacao/frequenciaValidacao.js';
 import bodyParser from 'body-parser'; // Importando o body-parser
 
 
@@ -85,13 +86,14 @@ routerFrequencia.post('/', async (req, res) => {
 
 // Rota para atualizar uma frequência existente
 routerFrequencia.put('/:id', async (req, res) => {
-    const idfrequencia = req.params.id;
-    const { dataEntrada, dataSaida, clientes_idclientes } = req.body;
+  const idfrequencia = req.params.id;
+  const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
 
-    if (!dataEntrada || !dataSaida || !clientes_idclientes) {
-        return res.status(400).json({ mensagem: 'Dados incompletos' });
-    }
-    if (isNaN(idfrequencia) || idfrequencia <= 0) {
+  if (!clientes_idclientes || !dataEntrada || !dataSaida) {
+    return res.status(400).json({ mensagem: 'Dados incompletos' });
+  }
+
+  if (isNaN(idfrequencia) || idfrequencia <= 0) {
     return res.status(400).json({ mensagem: 'ID inválido.' });
   }
 
@@ -100,30 +102,58 @@ routerFrequencia.put('/:id', async (req, res) => {
     return res.status(404).json({ mensagem: existe.mensagem });
   }
 
-   const validacaoNome = await validarFrequenciaParcial({ dataEntrada, dataSaida, clientes_idclientes });
-  if (!validacaoNome.status) {
-    return res.status(400).json({ mensagem: validacaoNome.mensagem });
-  }
-
-
   const validacao = await validarFrequencia(clientes_idclientes, dataEntrada, dataSaida);
   if (!validacao.status) {
     return res.status(400).json({ mensagem: validacao.mensagem });
   }
 
-    try {
-        const resultado = await atualizaFrequencia(idfrequencia, clientes_idclientes, dataEntrada, dataSaida);
-        
-        if (resultado.affectedRows === 0) {
-            return res.status(404).json({ mensagem: 'Frequência não encontrada' });
-        }
+  try {
+    const resultado = await atualizaFrequencia(idfrequencia, clientes_idclientes, dataEntrada, dataSaida);
 
-        res.json({ mensagem: 'Frequência atualizada com sucesso' });
-    } catch (erro) {
-        console.error('Erro ao atualizar frequência:', erro);
-        res.status(500).json({ mensagem: 'Erro interno no servidor' });
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ mensagem: 'Frequência não encontrada' });
     }
+
+    res.json({ mensagem: 'Frequência atualizada com sucesso' });
+  } catch (erro) {
+    console.error('Erro ao atualizar frequência:', erro);
+    res.status(500).json({ mensagem: 'Erro interno no servidor' });
+  }
 });
+
+
+routerFrequencia.patch('/:id', async (req, res) => {
+  const idfrequencia = req.params.id;
+  const { dataEntrada, dataSaida, clientes_idclientes } = req.body;
+
+  if (isNaN(idfrequencia) || idfrequencia <= 0) {
+    return res.status(400).json({ mensagem: 'ID inválido.' });
+  }
+
+  const existe = await validarExistenciaFrequencia(idfrequencia);
+  if (!existe.status) {
+    return res.status(404).json({ mensagem: existe.mensagem });
+  }
+
+  const validacao = await validarFrequenciaParcial({ dataEntrada, dataSaida, clientes_idclientes });
+  if (!validacao.status) {
+    return res.status(400).json({ mensagem: validacao.mensagem });
+  }
+
+  try {
+    const resultado = await atualizaFrequenciaParcial(idfrequencia, { dataEntrada, dataSaida, clientes_idclientes });
+
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ mensagem: 'Frequência não encontrada ou nenhum dado atualizado.' });
+    }
+
+    res.json({ mensagem: 'Frequência atualizada com sucesso (parcial).' });
+  } catch (erro) {
+    console.error('Erro ao atualizar frequência (PATCH):', erro);
+    res.status(500).json({ mensagem: 'Erro interno no servidor', erro: erro.message });
+  }
+});
+
 
 routerFrequencia.delete('/:id', async (req, res) => {
   const { id } = req.params;

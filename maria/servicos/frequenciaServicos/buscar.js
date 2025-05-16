@@ -21,6 +21,14 @@ export async function retornaFrequencias() {
     return rows;
 }
 
+export async function buscarFrequenciaPorId(idfrequencia) {
+  const conexao = await pool.getConnection();
+  const query = `SELECT * FROM frequencia WHERE idfrequencia = ?`;
+  const [rows] = await conexao.execute(query, [idfrequencia]);
+  conexao.release();
+  return rows;
+}
+
 export async function retornaFrequenciasPorClienteId(idCliente) {
     const conexao = await pool.getConnection();
 
