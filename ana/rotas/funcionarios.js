@@ -3,9 +3,38 @@ import multer from 'multer';
 const storage = multer.memoryStorage(); // salva o arquivo em buffer
 const upload = multer({ storage: storage });
 const routerFuncionario= express.Router();
-import { retornaFuncionarios, retornaFuncionariosPorNome } from '../servicos/funcionariosServicos/buscar.js';
+import { retornaFuncionarios, retornaFuncionariosPorNome, retornaFuncionarioPorid } from '../servicos/funcionariosServicos/buscar.js';
 import { cadastrarFuncionario } from '../servicos/funcionariosServicos/adicionar.js';
 import { deletarFuncionarioPorId } from '../servicos/funcionariosServicos/deletar.js';
+import { atualizarFuncionario } from '../servicos/funcionariosServicos/editar.js';
+import { validarFuncionario, validarAtualizacaoFuncionario} from '../validacao/validacaoFuncionario.js'
+
+
+routerFuncionario.put('/:id', async (req, res) => {
+  const id = req.params.id;
+  const dados = req.body;
+
+  const funcionarioExistente = await retornaFuncionarioPorId(id);
+
+
+  if (!funcionarioExistente) {
+    return res.status(404).json({ erro: 'Funcionário não encontrado para o ID informado.' });
+  }
+
+  const erros = validarAtualizacaoFuncionario(dados);
+  if (erros.length > 0) {
+    return res.status(400).json({ mensagem: "Erro de validação", erros });
+  }
+
+  try {
+    const resultado = await atualizarFuncionario(id, dados);
+    res.status(200).json({ mensagem: 'Funcionário atualizado com sucesso.', resultado });
+  } catch (erro) {
+    console.error('Erro ao atualizar funcionário:', erro);
+    res.status(500).json({ erro: 'Erro interno ao atualizar funcionário.' });
+  }
+});
+
 
 routerFuncionario.get('/', async (req, res) => {
     let resultado;
@@ -31,6 +60,23 @@ routerFuncionario.get('/', async (req, res) => {
         console.log(resultado)
         res.status(500).json({ mensagem: "Erro interno no servidor" });
     }
+});
+
+routerFuncionario.get('/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const funcionario = await retornaFuncionarioPorid(id);
+
+    if (!funcionario) {
+      return res.status(404).json({ mensagem: 'Funcionário não encontrado para o ID informado.' });
+    }
+
+    res.status(200).json(funcionario);
+  } catch (erro) {
+    console.error('Erro ao buscar funcionário por ID:', erro);
+    res.status(500).json({ mensagem: 'Erro interno no servidor ao buscar funcionário.' });
+  }
 });
 
 routerFuncionario.post('/', upload.fields([
@@ -71,6 +117,14 @@ routerFuncionario.post('/', upload.fields([
       certificado: certificadoBuffer
     }
   };
+
+  const erros = validarFuncionario(dados);
+  if (erros.length > 0) {
+    return res.status(400).json({
+      mensagem: "Erro de validação",
+      erros: erros
+    });
+  }
 
   try {
     const resultado = await cadastrarFuncionario(dados);

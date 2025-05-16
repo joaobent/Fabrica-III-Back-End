@@ -50,16 +50,28 @@ export async function retornaFuncionariosPorNome(nome) {
 }
 
 export async function retornaFuncionarioPorid(id) {
-    const conexao = await pool.getConnection();
-    const query = `
-        SELECT 
-        funcionarios.idfuncionarios, funcionarios.nome, funcionarios.telefone, funcionarios.email 
-        FROM funcionarios 
-        WHERE funcionarios.idfuncionarios = ${id};
-    `;
-    const resultado = await executaQuery(conexao, query);
-    conexao.release();
-    return resultado;
+  const conexao = await pool.getConnection();
+  const query = `
+    SELECT 
+      funcionarios.idfuncionarios,
+      funcionarios.nome,
+      funcionarios.senha,
+      funcionarios.cpf,
+      funcionarios.dataDeNascimento,
+      funcionarios.email,
+      funcionarios.telefone,
+      formacao.formacao AS nomeFormacao,
+      endereco.cep,
+      endereco.numeroCasa,
+      endereco.complemento   
+    FROM funcionarios 
+    INNER JOIN formacao ON funcionarios.formacao_idformacao = formacao.idformacao
+    INNER JOIN endereco ON funcionarios.endereco_idendereco = endereco.idendereco
+    WHERE funcionarios.idfuncionarios = ?
+  `;
+  const resultado = await executaQuery(conexao, query, [id]);
+  conexao.release();
+  return resultado;
 }
 
 
