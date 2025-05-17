@@ -1,7 +1,7 @@
 import express from 'express';
 // import pool from './servico/conexao.js';
 const routerFrequencia= express.Router();
-import { retornaFrequencias, retornaFrequenciasPorClienteId, } from "../servicos/frequenciaServicos/buscar.js";
+import { retornaFrequencias, buscarFrequenciaPorId, retornaFrequenciasPorClienteId } from "../servicos/frequenciaServicos/buscar.js";
 import { cadastraFrequencia } from "../servicos/frequenciaServicos/adicionar.js";
 import { atualizaFrequencia } from "../servicos/frequenciaServicos/editar.js";
 import { atualizaFrequenciaParcial } from '../servicos/frequenciaServicos/editartudo.js';
@@ -31,7 +31,7 @@ routerFrequencia.get('/', async (req, res) => {
     }
 });
 
-// Rota para buscar uma frequência por ID
+// Rota para buscar uma frequência por ID do cliente
 routerFrequencia.get('/:id', async (req, res) => {
     const { id } = req.params;
 
@@ -40,7 +40,7 @@ routerFrequencia.get('/:id', async (req, res) => {
   }
 
     try {
-        const frequencias = await retornaFrequenciasPorClienteId(id);
+        const frequencias = await buscarFrequenciaPorId(id);
 
         if (!frequencias || frequencias.length === 0) {
       return res.status(404).json({ mensagem: 'Frequência não encontrada' });
@@ -51,6 +51,28 @@ routerFrequencia.get('/:id', async (req, res) => {
         console.error('Erro ao buscar frequência por ID:', erro);
         res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
+});
+
+// GET - Frequências por ID do Cliente
+routerFrequencia.get('/cliente/:id', async (req, res) => {
+  const { id } = req.params;
+
+  if (isNaN(id) || id <= 0) {
+    return res.status(400).json({ mensagem: 'ID do cliente inválido.' });
+  }
+
+  try {
+    const frequencias = await retornaFrequenciasPorClienteId(id);
+
+    if (!frequencias || frequencias.length === 0) {
+      return res.status(404).json({ mensagem: 'Nenhuma frequência encontrada para este cliente.' });
+    }
+
+    res.status(200).json(frequencias);
+  } catch (erro) {
+    console.error('Erro ao buscar frequência por ID do cliente:', erro);
+    res.status(500).json({ mensagem: 'Erro interno no servidor' });
+  }
 });
 
 // Usando o bodyParser para lidar com JSON
@@ -88,10 +110,6 @@ routerFrequencia.post('/', async (req, res) => {
 routerFrequencia.put('/:id', async (req, res) => {
   const idfrequencia = req.params.id;
   const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
-
-  if (!clientes_idclientes || !dataEntrada || !dataSaida) {
-    return res.status(400).json({ mensagem: 'Dados incompletos' });
-  }
 
   if (isNaN(idfrequencia) || idfrequencia <= 0) {
     return res.status(400).json({ mensagem: 'ID inválido.' });
