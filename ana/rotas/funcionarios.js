@@ -3,18 +3,21 @@ import multer from 'multer';
 const storage = multer.memoryStorage(); // salva o arquivo em buffer
 const upload = multer({ storage: storage });
 const routerFuncionario= express.Router();
-import { retornaFuncionarios, retornaFuncionariosPorNome, retornaFuncionarioPorid } from '../servicos/funcionariosServicos/buscar.js';
+import { retornaFuncionarios, retornaFuncionariosPorNome, retornaFuncionarioPorid, buscarFotoPerfilPorId} from '../servicos/funcionariosServicos/buscar.js';
 import { cadastrarFuncionario } from '../servicos/funcionariosServicos/adicionar.js';
 import { deletarFuncionarioPorId } from '../servicos/funcionariosServicos/deletar.js';
 import { atualizarFuncionario } from '../servicos/funcionariosServicos/editar.js';
 import { validarFuncionario, validarAtualizacaoFuncionario} from '../validacao/validacaoFuncionario.js'
 
 
-routerFuncionario.put('/:id', async (req, res) => {
+routerFuncionario.put('/:id',upload.fields([
+  { name: 'certificado', maxCount: 1 },
+  { name: 'fotoPerfil', maxCount: 1 }
+]), async (req, res) => {
   const id = req.params.id;
   const dados = req.body;
 
-  const funcionarioExistente = await retornaFuncionarioPorId(id);
+  const funcionarioExistente = await retornaFuncionarioPorid(id);
 
 
   if (!funcionarioExistente) {
@@ -78,6 +81,27 @@ routerFuncionario.get('/:id', async (req, res) => {
     res.status(500).json({ mensagem: 'Erro interno no servidor ao buscar funcionário.' });
   }
 });
+
+
+
+routerFuncionario.get('/:id/fotoPerfil', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const funcionario = await buscarFotoPerfilPorId(id);
+    if (!funcionario || !funcionario.fotoPerfil) {
+      return res.status(404).json({ erro: 'Foto de perfil não encontrada.' });
+    }
+
+    res.setHeader('Content-Type', 'image/jpeg'); // ou image/png conforme o tipo da imagem
+    res.send(funcionario.fotoPerfil);
+  } catch (erro) {
+    console.error('Erro ao buscar foto de perfil:', erro);
+    res.status(500).json({ erro: 'Erro ao buscar foto de perfil.' });
+  }
+});
+
+
+
 
 routerFuncionario.post('/', upload.fields([
   { name: 'certificado', maxCount: 1 },

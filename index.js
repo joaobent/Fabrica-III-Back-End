@@ -6,7 +6,7 @@ import express from 'express';
 const app = express();
 
 app.use(express.json()); 
-
+import routerEndereco from './ana/rotas/endereco.js';
 import routerFuncionario from './ana/rotas/funcionarios.js';
 import routerFrequencia from './maria/rotas/frequencia.js';
 import routerFormacao from './maria/rotas/rotAformacao.js';
@@ -16,6 +16,7 @@ import routerEquipamentos from './anne/rotas/equipamento.js';
 import routerExercicios from './luz/rotas/exercicios.js';
 
 app.use('/funcionarios', routerFuncionario)
+app.use('/endereco', routerEndereco)
 app.use('/frequencia', routerFrequencia)
 app.use('/formacao', routerFormacao)
 app.use('/marca', routerMarca)

@@ -13,7 +13,7 @@ export async function atualizarFuncionario(id, dados) {
 
   const query = `
     UPDATE funcionarios SET 
-      nome = ?, 
+      nome = ?,  
       senha = ?, 
       cpf = ?, 
       dataDeNascimento = ?, 
@@ -21,7 +21,7 @@ export async function atualizarFuncionario(id, dados) {
       telefone = ? 
     WHERE idfuncionarios = ?
   `;
-
+//  ver essa rota
   const valores = [
     dados.nome,
     dados.senha,

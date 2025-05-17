@@ -19,7 +19,7 @@ export async function retornaFuncionarios() {
             formacao.formacao AS nomeFormacao,
             endereco.cep,
             endereco.numeroCasa,
-            endereco.complemento   
+            endereco.complemento
         FROM funcionarios 
         INNER JOIN formacao ON funcionarios.formacao_idformacao = formacao.idformacao
         INNER JOIN endereco ON funcionarios.endereco_idendereco = endereco.idendereco
@@ -32,18 +32,24 @@ export async function retornaFuncionarios() {
 
 export async function retornaFuncionariosPorNome(nome) {
     const conexao = await pool.getConnection();
-    const query = `
-        SELECT 
-            funcionarios.nome, 
-            funcionarios.telefone, 
-            funcionarios.email,
-            funcionarios.cpf,
-            funcionarios.dataDeNascimento,
-            formacao.formacao AS nomeFormacao
-        FROM funcionarios 
-        INNER JOIN formacao ON funcionarios.formacao_idformacao = formacao.idformacao
-        WHERE funcionarios.nome LIKE ?
-    `;
+    const query =`
+    SELECT 
+      funcionarios.idfuncionarios,
+      funcionarios.nome,
+      funcionarios.senha,
+      funcionarios.cpf,
+      funcionarios.dataDeNascimento,
+      funcionarios.email,
+      funcionarios.telefone,
+      formacao.formacao AS nomeFormacao,
+      endereco.cep,
+      endereco.numeroCasa,
+      endereco.complemento   
+    FROM funcionarios 
+    INNER JOIN formacao ON funcionarios.formacao_idformacao = formacao.idformacao
+    INNER JOIN endereco ON funcionarios.endereco_idendereco = endereco.idendereco
+    WHERE funcionarios.nome LIKE ?
+  `; 
     const resultado = await executaQuery(conexao, query,[`%${nome}%`]);
     conexao.release();
     return resultado;
@@ -75,3 +81,15 @@ export async function retornaFuncionarioPorid(id) {
 }
 
 
+export async function buscarFotoPerfilPorId(id) {
+  const conexao = await pool.getConnection();
+  try {
+    const [resultado] = await conexao.execute(
+      'SELECT fotoPerfil FROM funcionarios WHERE idfuncionarios = ?',
+      [id]
+    );
+    return resultado.length > 0 ? resultado[0] : null;
+  } finally {
+    conexao.release();
+  }
+}
