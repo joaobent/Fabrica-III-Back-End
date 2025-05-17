@@ -1,24 +1,22 @@
 import pool from "../../../conexao.js";
 
-export async function atualizarFormacaoParcial(idformacao, dadosAtualizados) {
+export async function atualizarFormacaoParcial(idformacao, dados) {
   const campos = [];
   const valores = [];
 
-  if (dadosAtualizados.formacao !== undefined) {
+  if (dados.formacao !== undefined) {
     campos.push('formacao = ?');
-    valores.push(dadosAtualizados.formacao);
+    valores.push(dados.formacao);
   }
 
-  if (dadosAtualizados.certificado !== undefined) {
+  if (dados.certificado !== undefined) {
     campos.push('certificado = ?');
-    valores.push(dadosAtualizados.certificado);
+    valores.push(dados.certificado);
   }
 
   if (campos.length === 0) {
     return { affectedRows: 0 }; // Nada pra atualizar
   }
-
-  valores.push(idformacao); // o id vai por último para o WHERE
 
   const conexao = await pool.getConnection();
   const query = `
@@ -26,6 +24,9 @@ export async function atualizarFormacaoParcial(idformacao, dadosAtualizados) {
     SET ${campos.join(', ')}
     WHERE idformacao = ?
   `;
+
+  valores.push(idformacao); // o id vai por último para o WHERE
+  
   const [resultado] = await conexao.execute(query, valores);
   conexao.release();
 

@@ -15,7 +15,13 @@ routerFormacao.get('/', async (req, res) => {
   const { id } = req.params;
   try {
     const formacoes = await buscarFormacao();
-    res.status(200).json(formacoes);
+
+    const formacoesSemCertificado = formacoes.map(f => {
+      const { certificado, ...resto } = f;
+      return resto;
+    });
+
+    res.status(200).json(formacoesSemCertificado);
   } catch (erro) {
     console.error('Erro ao buscar formações:', erro);
     res.status(500).json({ mensagem: 'Erro interno ao buscar formações.' });
@@ -36,7 +42,11 @@ routerFormacao.get('/:id', async (req, res) => {
       return res.status(404).json({ mensagem: 'Formação não encontrada.' });
     }
 
-    res.status(200).json(formacao);
+    const formacaoSemCertificado = formacao.map(f => {
+      const { certificado, ...resto } = f;
+      return resto;
+    });
+    res.status(200).json(formacaoSemCertificado);
   } catch (erro) {
     console.error('Erro ao buscar formação por ID:', erro);
     res.status(500).json({ mensagem: 'Erro interno ao buscar formação.' });
@@ -100,7 +110,7 @@ routerFormacao.put('/:id', upload.single('certificado'), async (req, res) => {
 
 routerFormacao.patch('/:id', async (req, res) => {
   const { id } = req.params;
-  const { certificado, formacao } = req.body;
+  const  dados = req.body;
 
   if (isNaN(id) || id <= 0) {
     return res.status(400).json({ mensagem: 'ID inválido.' });
@@ -112,18 +122,18 @@ routerFormacao.patch('/:id', async (req, res) => {
     return res.status(404).json({ mensagem: existe.mensagem });
   }
 
-  if (!certificado && !formacao) {
+  if (!dados.certificado && !dados.formacao) {
     return res.status(400).json({ mensagem: 'Informe pelo menos um campo para atualizar.' });
   }
 
   // Validação dos dados enviados parcialmente
-  const validacao = await validarFormacaoParcial(certificado, formacao);
+  const validacao = await validarFormacaoParcial(dados);
   if (!validacao.status) {
     return res.status(400).json({ mensagem: validacao.mensagem });
   }
 
   try {
-    const resultado = await atualizarFormacaoParcial(id, certificado, formacao);
+    const resultado = await atualizarFormacaoParcial(id, dados);
 
     if (resultado.affectedRows === 0) {
       return res.status(404).json({ mensagem: 'Formação não atualizada.' });
