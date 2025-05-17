@@ -100,7 +100,7 @@ routerFormacao.put('/:id', upload.single('certificado'), async (req, res) => {
 
 routerFormacao.patch('/:id', async (req, res) => {
   const { id } = req.params;
-  const dadosParciais = req.body;
+  const { certificado, formacao } = req.body;
 
   if (isNaN(id) || id <= 0) {
     return res.status(400).json({ mensagem: 'ID inválido.' });
