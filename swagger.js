@@ -12,7 +12,7 @@ const doc = {
       description: 'Servidor de Produção',
     },
     {
-      url: 'http://localhost:9000/',
+      url: 'http://localhost:9000/api-docs',
       description: 'Servidor de Desenvolvimento',
     },
   ],

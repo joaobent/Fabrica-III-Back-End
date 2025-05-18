@@ -11,7 +11,7 @@
       "description": "Servidor de Produção"
     },
     {
-      "url": "http://localhost:9000/",
+      "url": "http://localhost:9000/api-docs",
       "description": "Servidor de Desenvolvimento"
     }
   ],
@@ -1096,10 +1096,7 @@
     },
     "/endereco/{id}": {
       "get": {
-        "tags": [
-          "Endereço"
-        ],
-        "description": "Busca o endereço pelo ID do funcionário.",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -1107,99 +1104,23 @@
             "required": true,
             "schema": {
               "type": "string"
-            },
-            "description": "ID do funcionário para buscar o endereço"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Endereço encontrado com sucesso.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Endereco"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Endereco"
-                }
-              }
-            }
+            "description": "OK"
           },
           "404": {
-            "description": "Endereço não encontrado.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Endereço não encontrado."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Endereço não encontrado."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Erro interno ao buscar endereço.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Erro ao buscar endereço."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Erro ao buscar endereço."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "Erro Interno do Servidor"
           }
         }
       },
       "delete": {
-        "tags": [
-          "Endereço"
-        ],
-        "description": "Deleta um endereço pelo ID.",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -1207,245 +1128,37 @@
             "required": true,
             "schema": {
               "type": "string"
-            },
-            "description": "ID do endereço a ser deletado"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Endereço deletado com sucesso.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Endereço deletado com sucesso."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Endereço deletado com sucesso."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "Endereço vinculado a outra entidade e não pode ser deletado.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Endereço está vinculado a um [origem] e não pode ser deletado."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Endereço está vinculado a um [origem] e não pode ser deletado."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Endereço não encontrado.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Endereço não encontrado."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Endereço não encontrado."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Erro interno ao deletar endereço.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Erro ao deletar endereço."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Erro ao deletar endereço."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "Erro Interno do Servidor"
           }
         }
       }
     },
     "/endereco/": {
       "get": {
-        "tags": [
-          "Endereço"
-        ],
-        "description": "Retorna todos os endereços cadastrados.",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Lista de endereços retornada com sucesso.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Endereco"
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Endereco"
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           },
           "404": {
-            "description": "Nenhum endereço encontrado.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Nenhum endereço encontrado."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Nenhum endereço encontrado."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Erro interno ao buscar endereços.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Erro ao buscar endereços."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "mensagem": {
-                      "type": "string",
-                      "example": "Erro ao buscar endereços."
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "Erro Interno do Servidor"
           }
         }
       }

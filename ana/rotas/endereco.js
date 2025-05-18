@@ -5,21 +5,6 @@ import { buscarEnderecoPorFuncionarioId, buscarTodosEnderecos } from '../servico
 import { deletarEndereco } from '../servicos/endereco/deletar.js';
 
 routerEndereco.get('/:id', async (req, res) => {
-  // #swagger.tags = ['Endereço']
-  // #swagger.description = 'Busca o endereço pelo ID do funcionário.'
-  // #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário para buscar o endereço', required: true, type: 'string' }
-  /* #swagger.responses[200] = { 
-        description: 'Endereço encontrado com sucesso.',
-        schema: { $ref: '#/definitions/Endereco' }
-  } */
-  /* #swagger.responses[404] = { 
-        description: 'Endereço não encontrado.',
-        schema: { mensagem: 'Endereço não encontrado.' }
-  } */
-  /* #swagger.responses[500] = {
-        description: 'Erro interno ao buscar endereço.',
-        schema: { mensagem: 'Erro ao buscar endereço.' }
-  } */
   const id = req.params.id;
   try {
     const endereco = await buscarEnderecoPorFuncionarioId(id);
@@ -36,20 +21,6 @@ routerEndereco.get('/:id', async (req, res) => {
 });
 
 routerEndereco.get('/', async (req, res) => {
-  // #swagger.tags = ['Endereço']
-  // #swagger.description = 'Retorna todos os endereços cadastrados.'
-  /* #swagger.responses[200] = { 
-        description: 'Lista de endereços retornada com sucesso.',
-        schema: [{ $ref: '#/definitions/Endereco' }]
-  } */
-  /* #swagger.responses[404] = { 
-        description: 'Nenhum endereço encontrado.',
-        schema: { mensagem: 'Nenhum endereço encontrado.' }
-  } */
-  /* #swagger.responses[500] = {
-        description: 'Erro interno ao buscar endereços.',
-        schema: { mensagem: 'Erro ao buscar endereços.' }
-  } */
   try {
     const enderecos = await buscarTodosEnderecos();
 
@@ -65,25 +36,6 @@ routerEndereco.get('/', async (req, res) => {
 });
 
 routerEndereco.delete('/:id', async (req, res) => {
-   // #swagger.tags = ['Endereço']
-  // #swagger.description = 'Deleta um endereço pelo ID.'
-  // #swagger.parameters['id'] = { in: 'path', description: 'ID do endereço a ser deletado', required: true, type: 'string' }
-  /* #swagger.responses[200] = { 
-        description: 'Endereço deletado com sucesso.',
-        schema: { mensagem: 'Endereço deletado com sucesso.' }
-  } */
-  /* #swagger.responses[400] = { 
-        description: 'Endereço vinculado a outra entidade e não pode ser deletado.',
-        schema: { mensagem: 'Endereço está vinculado a um [origem] e não pode ser deletado.' }
-  } */
-  /* #swagger.responses[404] = { 
-        description: 'Endereço não encontrado.',
-        schema: { mensagem: 'Endereço não encontrado.' }
-  } */
-  /* #swagger.responses[500] = {
-        description: 'Erro interno ao deletar endereço.',
-        schema: { mensagem: 'Erro ao deletar endereço.' }
-  } */
   const id = req.params.id;
 
   try {
