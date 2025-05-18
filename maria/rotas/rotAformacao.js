@@ -18,16 +18,12 @@ routerFormacao.get('/', async (req, res) => {
     description: 'Lista de formações retornada com sucesso.',
     schema: [
       {
-        id: 1,
-        nome: 'Engenharia de Software',
-        instituicao: 'Universidade XYZ',
-        anoConclusao: 2020
+        idformacao: 1,
+        formacao: 'Instrutor de Crossfit'
       },
       {
-        id: 2,
-        nome: 'Análise de Sistemas',
-        instituicao: 'Faculdade ABC',
-        anoConclusao: 2018
+        id: 32,
+        formacao: 'Musculação Básica'
       }
     ]
 } */
@@ -61,10 +57,8 @@ routerFormacao.get('/:id', async (req, res) => {
 /* #swagger.responses[200] = {
     description: 'Formação retornada com sucesso.',
     schema: {
-      id: 1,
-      nome: 'Engenharia de Software',
-      instituicao: 'Universidade XYZ',
-      anoConclusao: 2020
+        idformacao: 1,
+        formacao: 'Instrutor de Crossfit'
     }
 } */
 /* #swagger.responses[400] = {

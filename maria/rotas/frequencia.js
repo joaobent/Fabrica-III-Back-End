@@ -24,8 +24,8 @@ routerFrequencia.get('/', async (req, res) => {
     description: 'Lista de frequências retornada com sucesso.',
     schema: [
       {
-        idfrequencia: 1,
-        clientes_idclientes: 10,
+        idfrequencia: 3,
+        clientes_idclientes: 1,
         dataEntrada: '2024-05-01T10:00:00Z',
         dataSaida: '2024-05-01T11:00:00Z'
       }
@@ -69,8 +69,8 @@ routerFrequencia.get('/:id', async (req, res) => {
 /* #swagger.responses[200] = {
     description: 'Frequência encontrada com sucesso.',
     schema: {
-      idfrequencia: 1,
-      clientes_idclientes: 10,
+      idfrequencia: 7,
+      clientes_idclientes: 3,
       dataEntrada: '2024-05-01T10:00:00Z',
       dataSaida: '2024-05-01T11:00:00Z'
     }
@@ -119,8 +119,8 @@ routerFrequencia.get('/cliente/:id', async (req, res) => {
     description: 'Lista de frequências do cliente retornada com sucesso.',
     schema: [
       {
-        idfrequencia: 1,
-        clientes_idclientes: 10,
+        idfrequencia: 7,
+        clientes_idclientes: 3,
         dataEntrada: '2024-05-01T10:00:00Z',
         dataSaida: '2024-05-01T11:00:00Z'
       }
