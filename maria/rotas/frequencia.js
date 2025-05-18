@@ -56,6 +56,31 @@ routerFrequencia.get('/', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /frequencia/{id}:
+ *   get:
+ *     tags: [Frequência]
+ *     summary: Busca uma frequência por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Frequência encontrada
+ *         content:
+ *           application/json:
+ *             example:
+ *               idfrequencia: 1
+ *               idcliente: 2
+ *               data: "2025-05-10"
+ *               horaentrada: "08:00"
+ *               horasaida: "09:00"
+ */
+
 // Rota para buscar uma frequência por ID
 routerFrequencia.get('/:id', async (req, res) => {
     const { id } = req.params;
@@ -78,6 +103,33 @@ routerFrequencia.get('/:id', async (req, res) => {
     }
 });
 
+
+/**
+ * @swagger
+ * /frequencia/cliente/{idcliente}:
+ *   get:
+ *     tags: [Frequência]
+ *     summary: Lista as frequências de um cliente específico
+ *     parameters:
+ *       - in: path
+ *         name: idcliente
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID do cliente
+ *     responses:
+ *       200:
+ *         description: Lista de frequências do cliente
+ *         content:
+ *           application/json:
+ *             example:
+ *               - idfrequencia: 3
+ *                 idcliente: 2
+ *                 data: "2025-05-15"
+ *                 horaentrada: "07:30"
+ *                 horasaida: "08:30"
+ */
+
 // GET - Frequências por ID do Cliente
 routerFrequencia.get('/cliente/:id', async (req, res) => {
   const { id } = req.params;
@@ -99,6 +151,26 @@ routerFrequencia.get('/cliente/:id', async (req, res) => {
     res.status(500).json({ mensagem: 'Erro interno no servidor' });
   }
 });
+
+/**
+ * @swagger
+ * /frequencia:
+ *   post:
+ *     tags: [Frequência]
+ *     summary: Cadastra uma nova frequência
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             idcliente: 2
+ *             data: "2025-05-18"
+ *             horaentrada: "07:00"
+ *             horasaida: "08:00"
+ *     responses:
+ *       201:
+ *         description: Frequência cadastrada com sucesso
+ */
 
 // Usando o bodyParser para lidar com JSON
 app.use(bodyParser.json());  // Isso vai garantir que o body seja interpretado corretamente
@@ -130,6 +202,33 @@ routerFrequencia.post('/', async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * /frequencia/{id}:
+ *   put:
+ *     tags: [Frequência]
+ *     summary: Atualiza todos os dados de uma frequência
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da frequência
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             idcliente: 2
+ *             data: "2025-05-20"
+ *             horaentrada: "08:00"
+ *             horasaida: "09:00"
+ *     responses:
+ *       200:
+ *         description: Frequência atualizada com sucesso
+ */
 
 // Rota para atualizar uma frequência existente
 routerFrequencia.put('/:id', async (req, res) => {
@@ -164,6 +263,29 @@ routerFrequencia.put('/:id', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /frequencia/{id}:
+ *   patch:
+ *     tags: [Frequência]
+ *     summary: Atualiza parcialmente os dados de uma frequência
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da frequência
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             horaentrada: "08:30"
+ *     responses:
+ *       200:
+ *         description: Frequência parcialmente atualizada
+ */
 
 routerFrequencia.patch('/:id', async (req, res) => {
   const idfrequencia = req.params.id;
@@ -197,6 +319,22 @@ routerFrequencia.patch('/:id', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /frequencia/{id}:
+ *   delete:
+ *     tags: [Frequência]
+ *     summary: Remove uma frequência por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       204:
+ *         description: Frequência deletada com sucesso
+ */
 
 routerFrequencia.delete('/:id', async (req, res) => {
   const { id } = req.params;
