@@ -27,10 +27,28 @@ const doc = {
     },
     {
       name: 'Endereço',
-      description: 'Operações relacionadas ao endereço',
+      description: 'Operações relacionadas ao endereço dos clientes e funcionários',
     },
-  
-    // Adicione mais tags se quiser
+    {
+    name: 'Funcionários',
+    description: 'Operações relacionadas aos dados dos funcionários',
+    },
+    {
+      name: 'Cliente',
+      description: 'Operações relacionadas aos dados dos clientes da academia',
+    },
+    {
+      name: 'Exercícios',
+      description: 'Operações relacionadas aos exercícios físicos disponíveis',
+    },
+    {
+      name: 'Equipamentos',
+      description: 'Operações relacionadas aos equipamentos da academia',
+    },
+    {
+      name: 'Marcas',
+      description: 'Operações relacionadas às marcas dos equipamentos da acaddemia',
+    },
   ],
   components: {},
 };
