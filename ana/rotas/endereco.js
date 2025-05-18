@@ -5,8 +5,6 @@ import { buscarEnderecoPorFuncionarioId, buscarTodosEnderecos } from '../servico
 import { deletarEndereco } from '../servicos/endereco/deletar.js';
 
 routerEndereco.get('/:id', async (req, res) => {
- 
-
   const id = req.params.id;
   try {
     const endereco = await buscarEnderecoPorFuncionarioId(id);
@@ -23,8 +21,6 @@ routerEndereco.get('/:id', async (req, res) => {
 });
 
 routerEndereco.get('/', async (req, res) => {
-
-
   try {
     const enderecos = await buscarTodosEnderecos();
 
@@ -40,8 +36,6 @@ routerEndereco.get('/', async (req, res) => {
 });
 
 routerEndereco.delete('/:id', async (req, res) => {
-
-
   const id = req.params.id;
 
   try {
