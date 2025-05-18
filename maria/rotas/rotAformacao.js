@@ -63,7 +63,7 @@ routerFormacao.get('/:id/certificado', async (req, res) => {
       return res.status(404).json({ erro: 'Certificado não encontrado.' });
     }
 
-    res.setHeader('Content-Type', 'application/image/jpeg'); // ou 'image/jpeg' se for imagem
+    res.setHeader('Content-Type', 'image/jpeg'); // ou 'image/jpeg' se for imagem
     res.send(formacao.certificado);
   } catch (erro) {
     console.error('Erro ao buscar certificado:', erro);
