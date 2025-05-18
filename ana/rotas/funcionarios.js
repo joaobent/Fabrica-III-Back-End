@@ -15,6 +15,25 @@ routerFuncionario.patch('/:id', upload.fields([
   { name: 'fotoPerfil', maxCount: 1 },
   { name: 'certificado', maxCount: 1 }
 ]), async (req, res, next) => {
+  // #swagger.tags = ['Funcionário']
+// #swagger.description = 'Atualiza parcialmente os dados de um funcionário pelo ID.'
+// #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
+/* #swagger.responses[200] = {
+      description: 'Funcionário atualizado com sucesso.',
+      schema: { mensagem: 'Funcionário atualizado com sucesso!' }
+} */
+/* #swagger.responses[400] = {
+      description: 'Erro de validação.',
+      schema: { erros: ['Campo inválido'] }
+} */
+/* #swagger.responses[404] = {
+      description: 'Funcionário não encontrado.',
+      schema: { mensagem: 'Funcionário não encontrado ou nenhum dado alterado.' }
+} */
+/* #swagger.responses[500] = {
+      description: 'Erro interno ao atualizar funcionário.',
+      schema: { mensagem: 'Erro interno no servidor.' }
+} */
   const id = req.params.id;
 
   const {
@@ -86,6 +105,21 @@ routerFuncionario.put('/:id', upload.fields([
   { name: 'fotoPerfil', maxCount: 1 },
   { name: 'certificado', maxCount: 1 }
 ]), validarAtualizacaoFuncionario, async (req, res) => {
+  // #swagger.tags = ['Funcionário']
+// #swagger.description = 'Atualiza completamente os dados de um funcionário pelo ID.'
+// #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
+/* #swagger.responses[200] = {
+      description: 'Funcionário atualizado com sucesso.',
+      schema: { mensagem: 'Funcionário atualizado com sucesso!' }
+} */
+/* #swagger.responses[404] = {
+      description: 'Funcionário não encontrado.',
+      schema: { mensagem: 'Funcionário não encontrado ou nenhum dado alterado.' }
+} */
+/* #swagger.responses[500] = {
+      description: 'Erro interno ao atualizar funcionário.',
+      schema: { mensagem: 'Erro interno no servidor.' }
+} */
   const id = req.params.id;
 
   const {
@@ -139,6 +173,25 @@ routerFuncionario.put('/:id', upload.fields([
 
 
 routerFuncionario.get('/', async (req, res) => {
+  // #swagger.tags = ['Funcionário']
+// #swagger.description = 'Retorna todos os funcionários ou filtra por nome usando query.'
+// #swagger.parameters['nome'] = { in: 'query', description: 'Nome do funcionário para filtrar', required: false, type: 'string' }
+/* #swagger.responses[200] = {
+      description: 'Funcionários encontrados.',
+      schema: [{ id: 1, nome: 'Exemplo' }]
+} */
+/* #swagger.responses[400] = {
+      description: 'Nome inválido para busca.',
+      schema: { mensagem: 'Por favor, informe um nome válido para buscar.' }
+} */
+/* #swagger.responses[404] = {
+      description: 'Nenhum funcionário encontrado.',
+      schema: { mensagem: 'Nenhum funcionário encontrado' }
+} */
+/* #swagger.responses[500] = {
+      description: 'Erro interno ao buscar funcionários.',
+      schema: { mensagem: 'Erro interno no servidor' }
+} */
     let resultado;
     const nome = req.query.nome;
 
@@ -165,6 +218,21 @@ routerFuncionario.get('/', async (req, res) => {
 });
 
 routerFuncionario.get('/:id', async (req, res) => {
+  // #swagger.tags = ['Funcionário']
+// #swagger.description = 'Retorna os dados de um funcionário pelo ID.'
+// #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
+/* #swagger.responses[200] = {
+      description: 'Funcionário encontrado.',
+      schema: { id: 1, nome: 'Exemplo' }
+} */
+/* #swagger.responses[404] = {
+      description: 'Funcionário não encontrado.',
+      schema: { mensagem: 'Funcionário não encontrado para o ID informado.' }
+} */
+/* #swagger.responses[500] = {
+      description: 'Erro interno ao buscar funcionário.',
+      schema: { mensagem: 'Erro interno no servidor ao buscar funcionário.' }
+} */
   const id = req.params.id;
 
   try {
@@ -184,6 +252,20 @@ routerFuncionario.get('/:id', async (req, res) => {
 
 
 routerFuncionario.get('/:id/fotoPerfil', async (req, res) => {
+  // #swagger.tags = ['Funcionário']
+// #swagger.description = 'Retorna a foto de perfil do funcionário pelo ID.'
+// #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
+/* #swagger.responses[200] = {
+      description: 'Foto de perfil retornada com sucesso.'
+} */
+/* #swagger.responses[404] = {
+      description: 'Foto de perfil não encontrada.',
+      schema: { erro: 'Foto de perfil não encontrada.' }
+} */
+/* #swagger.responses[500] = {
+      description: 'Erro ao buscar foto de perfil.',
+      schema: { erro: 'Erro ao buscar foto de perfil.' }
+} */
   const id = req.params.id;
   try {
     const funcionario = await buscarFotoPerfilPorId(id);
@@ -204,6 +286,20 @@ routerFuncionario.post('/', upload.fields([
   { name: 'certificado', maxCount: 1 },
   { name: 'fotoPerfil', maxCount: 1 }
 ]), async (req, res) => {
+  // #swagger.tags = ['Funcionário']
+// #swagger.description = 'Cadastra um novo funcionário.'
+/* #swagger.responses[201] = {
+      description: 'Funcionário cadastrado com sucesso.',
+      schema: { mensagem: 'Funcionário cadastrado com sucesso', id: 1 }
+} */
+/* #swagger.responses[400] = {
+      description: 'Erro de validação.',
+      schema: { mensagem: 'Erro de validação', erros: ['Campo obrigatório'] }
+} */
+/* #swagger.responses[500] = {
+      description: 'Erro ao cadastrar funcionário.',
+      schema: { erro: 'Erro ao cadastrar funcionário' }
+} */
   const {
     nome,
     senha,
@@ -260,6 +356,21 @@ routerFuncionario.post('/', upload.fields([
 });
 
 routerFuncionario.delete('/:id', async (req, res)=> {
+  // #swagger.tags = ['Funcionário']
+// #swagger.description = 'Deleta um funcionário pelo ID.'
+// #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
+/* #swagger.responses[200] = {
+      description: 'Funcionário deletado com sucesso.',
+      schema: { mensagem: 'Funcionário deletado com sucesso' }
+} */
+/* #swagger.responses[404] = {
+      description: 'Funcionário não encontrado.',
+      schema: { mensagem: 'Funcionário não encontrado' }
+} */
+/* #swagger.responses[500] = {
+      description: 'Erro interno ao deletar funcionário.',
+      schema: { mensagem: 'Erro interno no servidor' }
+} */
   const id = req.params.id;
 
   try {

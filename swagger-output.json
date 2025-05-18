@@ -26,13 +26,36 @@
     },
     {
       "name": "Endereço",
-      "description": "Operações relacionadas ao endereço"
+      "description": "Operações relacionadas ao endereço dos clientes e funcionários"
+    },
+    {
+      "name": "Funcionários",
+      "description": "Operações relacionadas aos dados dos funcionários"
+    },
+    {
+      "name": "Cliente",
+      "description": "Operações relacionadas aos dados dos clientes da academia"
+    },
+    {
+      "name": "Exercícios",
+      "description": "Operações relacionadas aos exercícios físicos disponíveis"
+    },
+    {
+      "name": "Equipamentos",
+      "description": "Operações relacionadas aos equipamentos da academia"
+    },
+    {
+      "name": "Marcas",
+      "description": "Operações relacionadas às marcas dos equipamentos da acaddemia"
     }
   ],
   "paths": {
     "/funcionarios/{id}": {
       "patch": {
-        "description": "",
+        "tags": [
+          "Funcionário"
+        ],
+        "description": "Atualiza parcialmente os dados de um funcionário pelo ID.",
         "parameters": [
           {
             "name": "id",
@@ -40,21 +63,152 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID do funcionário"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Funcionário atualizado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário atualizado com sucesso!"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário atualizado com sucesso!"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Solicitação Inválida"
+            "description": "Erro de validação.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "erros": {
+                      "type": "array",
+                      "example": [
+                        "Campo inválido"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "erros": {
+                      "type": "array",
+                      "example": [
+                        "Campo inválido"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "404": {
-            "description": "Não Encontrado"
+            "description": "Funcionário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário não encontrado ou nenhum dado alterado."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário não encontrado ou nenhum dado alterado."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro interno ao atualizar funcionário.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -106,7 +260,10 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Funcionário"
+        ],
+        "description": "Atualiza completamente os dados de um funcionário pelo ID.",
         "parameters": [
           {
             "name": "id",
@@ -114,18 +271,109 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID do funcionário"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Funcionário atualizado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário atualizado com sucesso!"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário atualizado com sucesso!"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "404": {
-            "description": "Não Encontrado"
+            "description": "Funcionário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário não encontrado ou nenhum dado alterado."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário não encontrado ou nenhum dado alterado."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro interno ao atualizar funcionário.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -171,7 +419,10 @@
         }
       },
       "get": {
-        "description": "",
+        "tags": [
+          "Funcionário"
+        ],
+        "description": "Retorna os dados de um funcionário pelo ID.",
         "parameters": [
           {
             "name": "id",
@@ -179,23 +430,125 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID do funcionário"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Funcionário encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "nome": {
+                      "type": "string",
+                      "example": "Exemplo"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "nome": {
+                      "type": "string",
+                      "example": "Exemplo"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "404": {
-            "description": "Não Encontrado"
+            "description": "Funcionário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário não encontrado para o ID informado."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário não encontrado para o ID informado."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro interno ao buscar funcionário.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor ao buscar funcionário."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor ao buscar funcionário."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Funcionário"
+        ],
+        "description": "Deleta um funcionário pelo ID.",
         "parameters": [
           {
             "name": "id",
@@ -203,29 +556,125 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID do funcionário"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Funcionário deletado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário deletado com sucesso"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário deletado com sucesso"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "404": {
-            "description": "Não Encontrado"
+            "description": "Funcionário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário não encontrado"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário não encontrado"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro interno ao deletar funcionário.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/funcionarios/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Funcionário"
+        ],
+        "description": "Retorna todos os funcionários ou filtra por nome usando query.",
         "parameters": [
           {
             "name": "nome",
             "in": "query",
+            "description": "Nome do funcionário para filtrar",
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -233,30 +682,283 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Funcionários encontrados.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "nome": {
+                        "type": "string",
+                        "example": "Exemplo"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "nome": {
+                        "type": "string",
+                        "example": "Exemplo"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Solicitação Inválida"
+            "description": "Nome inválido para busca.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Por favor, informe um nome válido para buscar."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Por favor, informe um nome válido para buscar."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "404": {
-            "description": "Não Encontrado"
+            "description": "Nenhum funcionário encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Nenhum funcionário encontrado"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Nenhum funcionário encontrado"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro interno ao buscar funcionários.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro interno no servidor"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Funcionário"
+        ],
+        "description": "Cadastra um novo funcionário.",
         "responses": {
           "201": {
-            "description": "Criado"
+            "description": "Funcionário cadastrado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário cadastrado com sucesso"
+                    },
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Funcionário cadastrado com sucesso"
+                    },
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Solicitação Inválida"
+            "description": "Erro de validação.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro de validação"
+                    },
+                    "erros": {
+                      "type": "array",
+                      "example": [
+                        "Campo obrigatório"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro de validação"
+                    },
+                    "erros": {
+                      "type": "array",
+                      "example": [
+                        "Campo obrigatório"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro ao cadastrar funcionário.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "erro": {
+                      "type": "string",
+                      "example": "Erro ao cadastrar funcionário"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "erro": {
+                      "type": "string",
+                      "example": "Erro ao cadastrar funcionário"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -304,7 +1006,10 @@
     },
     "/funcionarios/{id}/fotoPerfil": {
       "get": {
-        "description": "",
+        "tags": [
+          "Funcionário"
+        ],
+        "description": "Retorna a foto de perfil do funcionário pelo ID.",
         "parameters": [
           {
             "name": "id",
@@ -312,18 +1017,79 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID do funcionário"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Foto de perfil retornada com sucesso."
           },
           "404": {
-            "description": "Não Encontrado"
+            "description": "Foto de perfil não encontrada.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "erro": {
+                      "type": "string",
+                      "example": "Foto de perfil não encontrada."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "erro": {
+                      "type": "string",
+                      "example": "Foto de perfil não encontrada."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro ao buscar foto de perfil.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "erro": {
+                      "type": "string",
+                      "example": "Erro ao buscar foto de perfil."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "erro": {
+                      "type": "string",
+                      "example": "Erro ao buscar foto de perfil."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         }
       }
