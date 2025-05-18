@@ -1,5 +1,4 @@
 {
-  "swagger": "2.0",
   "openapi": "3.0.0",
   "info": {
     "title": "API da academia - ALMSFIT",
@@ -39,51 +38,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                },
-                "senha": {
-                  "example": "any"
-                },
-                "cpf": {
-                  "example": "any"
-                },
-                "dataDeNascimento": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telefone": {
-                  "example": "any"
-                },
-                "cep": {
-                  "example": "any"
-                },
-                "numeroCasa": {
-                  "example": "any"
-                },
-                "complemento": {
-                  "example": "any"
-                },
-                "formacao": {
-                  "example": "any"
-                },
-                "idEndereco": {
-                  "example": "any"
-                },
-                "idFormacao": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -92,13 +48,60 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  },
+                  "cpf": {
+                    "example": "any"
+                  },
+                  "dataDeNascimento": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "telefone": {
+                    "example": "any"
+                  },
+                  "cep": {
+                    "example": "any"
+                  },
+                  "numeroCasa": {
+                    "example": "any"
+                  },
+                  "complemento": {
+                    "example": "any"
+                  },
+                  "formacao": {
+                    "example": "any"
+                  },
+                  "idEndereco": {
+                    "example": "any"
+                  },
+                  "idFormacao": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -109,45 +112,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                },
-                "senha": {
-                  "example": "any"
-                },
-                "cpf": {
-                  "example": "any"
-                },
-                "dataDeNascimento": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telefone": {
-                  "example": "any"
-                },
-                "cep": {
-                  "example": "any"
-                },
-                "numeroCasa": {
-                  "example": "any"
-                },
-                "complemento": {
-                  "example": "any"
-                },
-                "formacao": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -156,10 +122,51 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  },
+                  "cpf": {
+                    "example": "any"
+                  },
+                  "dataDeNascimento": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "telefone": {
+                    "example": "any"
+                  },
+                  "cep": {
+                    "example": "any"
+                  },
+                  "numeroCasa": {
+                    "example": "any"
+                  },
+                  "complemento": {
+                    "example": "any"
+                  },
+                  "formacao": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -170,7 +177,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -178,10 +187,10 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
@@ -192,7 +201,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -200,10 +211,10 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
@@ -215,7 +226,9 @@
           {
             "name": "nome",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -223,68 +236,68 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                },
-                "senha": {
-                  "example": "any"
-                },
-                "cpf": {
-                  "example": "any"
-                },
-                "dataDeNascimento": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telefone": {
-                  "example": "any"
-                },
-                "cep": {
-                  "example": "any"
-                },
-                "numeroCasa": {
-                  "example": "any"
-                },
-                "complemento": {
-                  "example": "any"
-                },
-                "formacao": {
-                  "example": "any"
+        "responses": {
+          "201": {
+            "description": "Criado"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  },
+                  "cpf": {
+                    "example": "any"
+                  },
+                  "dataDeNascimento": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "telefone": {
+                    "example": "any"
+                  },
+                  "cep": {
+                    "example": "any"
+                  },
+                  "numeroCasa": {
+                    "example": "any"
+                  },
+                  "complemento": {
+                    "example": "any"
+                  },
+                  "formacao": {
+                    "example": "any"
+                  }
                 }
               }
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -292,15 +305,14 @@
     "/funcionarios/{id}/fotoPerfil": {
       "get": {
         "description": "",
-        "produces": [
-          "image/jpeg"
-        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -308,34 +320,86 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
     },
     "/endereco/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Carro"
+        ],
+        "description": "Retorna a imagem de um carro pelo ID da imagem",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "idImagem",
+            "in": "path",
+            "description": "ID da imagem do carro",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Imagem do carro encontrada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "format": {
+                      "type": "string",
+                      "example": "binary"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "format": {
+                      "type": "string",
+                      "example": "binary"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Imagem não encontrada"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro interno ao buscar a imagem"
           }
         }
       },
@@ -346,7 +410,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -354,13 +420,13 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
@@ -373,10 +439,10 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
@@ -389,44 +455,44 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "clientes_idclientes": {
-                  "example": "any"
-                },
-                "dataEntrada": {
-                  "example": "any"
-                },
-                "dataSaida": {
-                  "example": "any"
+        "responses": {
+          "201": {
+            "description": "Criado"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clientes_idclientes": {
+                    "example": "any"
+                  },
+                  "dataEntrada": {
+                    "example": "any"
+                  },
+                  "dataSaida": {
+                    "example": "any"
+                  }
                 }
               }
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -439,7 +505,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -447,13 +515,13 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
@@ -464,24 +532,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "clientes_idclientes": {
-                  "example": "any"
-                },
-                "dataEntrada": {
-                  "example": "any"
-                },
-                "dataSaida": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -490,13 +542,33 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clientes_idclientes": {
+                    "example": "any"
+                  },
+                  "dataEntrada": {
+                    "example": "any"
+                  },
+                  "dataSaida": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -507,24 +579,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "dataEntrada": {
-                  "example": "any"
-                },
-                "dataSaida": {
-                  "example": "any"
-                },
-                "clientes_idclientes": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -533,13 +589,33 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataEntrada": {
+                    "example": "any"
+                  },
+                  "dataSaida": {
+                    "example": "any"
+                  },
+                  "clientes_idclientes": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -550,7 +626,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -558,13 +636,13 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
@@ -577,7 +655,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -585,13 +665,13 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
@@ -604,35 +684,35 @@
             "description": "OK"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "formacao": {
-                  "example": "any"
+        "responses": {
+          "201": {
+            "description": "Criado"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "formacao": {
+                    "example": "any"
+                  }
                 }
               }
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -645,7 +725,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -653,13 +735,13 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
@@ -670,18 +752,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "formacao": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -690,13 +762,27 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "formacao": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -707,21 +793,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "certificado": {
-                  "example": "any"
-                },
-                "formacao": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -730,13 +803,30 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "certificado": {
+                    "example": "any"
+                  },
+                  "formacao": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -747,7 +837,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -755,10 +847,10 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
@@ -766,15 +858,14 @@
     "/formacao/{id}/certificado": {
       "get": {
         "description": "",
-        "produces": [
-          "image/jpeg"
-        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -782,10 +873,10 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
@@ -798,18 +889,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -818,10 +899,24 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -832,7 +927,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -840,10 +937,10 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           }
         }
       },
@@ -854,7 +951,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -862,10 +961,10 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           }
         }
       }
@@ -873,26 +972,26 @@
     "/marca/": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
+        "responses": {
+          "201": {
+            "description": "Criado"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  }
                 }
               }
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       },
@@ -902,7 +1001,9 @@
           {
             "name": "nome",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -910,7 +1011,7 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           }
         }
       }
@@ -922,7 +1023,9 @@
           {
             "name": "nome",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -930,71 +1033,71 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                },
-                "cpf": {
-                  "example": "any"
-                },
-                "dataDeNascimento": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telefone": {
-                  "example": "any"
-                },
-                "contatoDeEmergencia": {
-                  "example": "any"
-                },
-                "cep": {
-                  "example": "any"
-                },
-                "numeroCasa": {
-                  "example": "any"
-                },
-                "complemento": {
-                  "example": "any"
-                },
-                "peso": {
-                  "example": "any"
-                },
-                "altura": {
-                  "example": "any"
-                },
-                "sexo": {
-                  "example": "any"
-                },
-                "objetivo": {
-                  "example": "any"
+        "responses": {
+          "201": {
+            "description": "Criado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "cpf": {
+                    "example": "any"
+                  },
+                  "dataDeNascimento": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "telefone": {
+                    "example": "any"
+                  },
+                  "contatoDeEmergencia": {
+                    "example": "any"
+                  },
+                  "cep": {
+                    "example": "any"
+                  },
+                  "numeroCasa": {
+                    "example": "any"
+                  },
+                  "complemento": {
+                    "example": "any"
+                  },
+                  "peso": {
+                    "example": "any"
+                  },
+                  "altura": {
+                    "example": "any"
+                  },
+                  "sexo": {
+                    "example": "any"
+                  },
+                  "objetivo": {
+                    "example": "any"
+                  }
                 }
               }
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -1007,7 +1110,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1015,10 +1120,10 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
@@ -1029,57 +1134,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                },
-                "cpf": {
-                  "example": "any"
-                },
-                "dataDeNascimento": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telefone": {
-                  "example": "any"
-                },
-                "contatoDeEmergencia": {
-                  "example": "any"
-                },
-                "cep": {
-                  "example": "any"
-                },
-                "numeroCasa": {
-                  "example": "any"
-                },
-                "complemento": {
-                  "example": "any"
-                },
-                "peso": {
-                  "example": "any"
-                },
-                "altura": {
-                  "example": "any"
-                },
-                "sexo": {
-                  "example": "any"
-                },
-                "objetivo": {
-                  "example": "any"
-                },
-                "idendereco": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -1088,10 +1144,63 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "cpf": {
+                    "example": "any"
+                  },
+                  "dataDeNascimento": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "telefone": {
+                    "example": "any"
+                  },
+                  "contatoDeEmergencia": {
+                    "example": "any"
+                  },
+                  "cep": {
+                    "example": "any"
+                  },
+                  "numeroCasa": {
+                    "example": "any"
+                  },
+                  "complemento": {
+                    "example": "any"
+                  },
+                  "peso": {
+                    "example": "any"
+                  },
+                  "altura": {
+                    "example": "any"
+                  },
+                  "sexo": {
+                    "example": "any"
+                  },
+                  "objetivo": {
+                    "example": "any"
+                  },
+                  "idendereco": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1102,18 +1211,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "endereco": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -1122,10 +1221,24 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "endereco": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1136,7 +1249,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1144,10 +1259,10 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
@@ -1160,18 +1275,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -1180,10 +1285,24 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1194,30 +1313,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                },
-                "tipo": {
-                  "example": "any"
-                },
-                "numeroDIncricao": {
-                  "example": "any"
-                },
-                "descricao": {
-                  "example": "any"
-                },
-                "marca_idmarca": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -1226,10 +1323,36 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "tipo": {
+                    "example": "any"
+                  },
+                  "numeroDIncricao": {
+                    "example": "any"
+                  },
+                  "descricao": {
+                    "example": "any"
+                  },
+                  "marca_idmarca": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1240,7 +1363,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1248,10 +1373,10 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           }
         }
       },
@@ -1262,7 +1387,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1270,10 +1397,10 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           }
         }
       }
@@ -1281,41 +1408,41 @@
     "/equipamentos/": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                },
-                "tipo": {
-                  "example": "any"
-                },
-                "numeroDeInscricao": {
-                  "example": "any"
-                },
-                "descricao": {
-                  "example": "any"
-                },
-                "marca_idmarca": {
-                  "example": "any"
+        "responses": {
+          "201": {
+            "description": "Criado"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "tipo": {
+                    "example": "any"
+                  },
+                  "numeroDeInscricao": {
+                    "example": "any"
+                  },
+                  "descricao": {
+                    "example": "any"
+                  },
+                  "marca_idmarca": {
+                    "example": "any"
+                  }
                 }
               }
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -1325,7 +1452,9 @@
           {
             "name": "nome",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1333,7 +1462,7 @@
             "description": "OK"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           }
         }
       }
@@ -1346,59 +1475,59 @@
             "description": "OK"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "quantDeSeries": {
-                  "example": "any"
-                },
-                "quantDeRepeticoes": {
-                  "example": "any"
-                },
-                "diaDaSemana": {
-                  "example": "any"
-                },
-                "parteDoCorpo": {
-                  "example": "any"
-                },
-                "clientes_idclientes": {
-                  "example": "any"
-                },
-                "funcionarios_idfuncionarios": {
-                  "example": "any"
-                },
-                "funcionarios_formacao_idformacao": {
-                  "example": "any"
-                },
-                "equipamentos_idequipamentos": {
-                  "example": "any"
-                },
-                "equipamentos_marca_idmarca": {
-                  "example": "any"
+        "responses": {
+          "201": {
+            "description": "Criado"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "quantDeSeries": {
+                    "example": "any"
+                  },
+                  "quantDeRepeticoes": {
+                    "example": "any"
+                  },
+                  "diaDaSemana": {
+                    "example": "any"
+                  },
+                  "parteDoCorpo": {
+                    "example": "any"
+                  },
+                  "clientes_idclientes": {
+                    "example": "any"
+                  },
+                  "funcionarios_idfuncionarios": {
+                    "example": "any"
+                  },
+                  "funcionarios_formacao_idformacao": {
+                    "example": "any"
+                  },
+                  "equipamentos_idequipamentos": {
+                    "example": "any"
+                  },
+                  "equipamentos_marca_idmarca": {
+                    "example": "any"
+                  }
                 }
               }
             }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -1411,7 +1540,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1419,13 +1550,13 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
@@ -1436,7 +1567,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1444,13 +1577,13 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
@@ -1461,42 +1594,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "quantDeSeries": {
-                  "example": "any"
-                },
-                "quantDeRepeticoes": {
-                  "example": "any"
-                },
-                "diaDaSemana": {
-                  "example": "any"
-                },
-                "parteDoCorpo": {
-                  "example": "any"
-                },
-                "clientes_idclientes": {
-                  "example": "any"
-                },
-                "funcionarios_idfuncionarios": {
-                  "example": "any"
-                },
-                "funcionarios_formacao_idformacao": {
-                  "example": "any"
-                },
-                "equipamentos_idequipamentos": {
-                  "example": "any"
-                },
-                "equipamentos_marca_idmarca": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -1505,13 +1604,51 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "quantDeSeries": {
+                    "example": "any"
+                  },
+                  "quantDeRepeticoes": {
+                    "example": "any"
+                  },
+                  "diaDaSemana": {
+                    "example": "any"
+                  },
+                  "parteDoCorpo": {
+                    "example": "any"
+                  },
+                  "clientes_idclientes": {
+                    "example": "any"
+                  },
+                  "funcionarios_idfuncionarios": {
+                    "example": "any"
+                  },
+                  "funcionarios_formacao_idformacao": {
+                    "example": "any"
+                  },
+                  "equipamentos_idequipamentos": {
+                    "example": "any"
+                  },
+                  "equipamentos_marca_idmarca": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1522,7 +1659,9 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1530,78 +1669,13 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitação Inválida"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+            "description": "Erro Interno do Servidor"
           }
         }
       }
