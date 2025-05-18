@@ -1,5 +1,5 @@
 // swagger.js
-
+import swaggerAutogen from 'swagger-autogen';
 const doc = {
   openapi: '3.0.0',
   info: {
@@ -26,13 +26,18 @@ const doc = {
       name: 'Formação',
       description: 'Operações relacionadas à formação dos funcionários',
     },
+    {
+      name: 'Endereço',
+      description: 'Operações relacionadas ao endereço',
+    },
+  
     // Adicione mais tags se quiser
   ],
   components: {},
 };
 
 const outputFile = './swagger-output.json';
-const endpointsFiles = ['./index.js']; // pode adicionar mais arquivos aqui, como suas rotas
+const endpointsFiles = ['./index.js', './ana/rotas/endereco.js']; // pode adicionar mais arquivos aqui, como suas rotas
 
 swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
   console.log('✅ Documentação Swagger gerada com sucesso!');
