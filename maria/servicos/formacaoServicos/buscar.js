@@ -13,6 +13,11 @@ export async function buscarFormacao() {
   return resultado;
 }
 
+export async function buscarCertificadoPorId(id) {
+  const [resultado] = await pool.execute('SELECT certificado FROM formacao WHERE idformacao = ?', [id]);
+  return resultado[0];
+}
+
 export async function buscarFormacaoPorId(id) {
   const conexao = await pool.getConnection();
 

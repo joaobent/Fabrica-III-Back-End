@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import { adicionarFormacao } from '../servicos/formacaoServicos/adicionar.js';
-import { buscarFormacao, buscarFormacaoPorId } from '../servicos/formacaoServicos/buscar.js';
+import { buscarFormacao, buscarFormacaoPorId, buscarCertificadoPorId } from '../servicos/formacaoServicos/buscar.js';
 import { atualizaFormacao } from '../servicos/formacaoServicos/editar.js';
 import { deletarFormacao } from '../servicos/formacaoServicos/deletar.js';
 import { atualizarFormacaoParcial } from '../servicos/formacaoServicos/editartudo.js';
@@ -12,7 +12,7 @@ const routerFormacao = express.Router();
 const upload = multer(); // Para lidar com arquivos (certificados)
 
 routerFormacao.get('/', async (req, res) => {
-  const { id } = req.params;
+
   try {
     const formacoes = await buscarFormacao();
 
@@ -50,6 +50,24 @@ routerFormacao.get('/:id', async (req, res) => {
   } catch (erro) {
     console.error('Erro ao buscar formação por ID:', erro);
     res.status(500).json({ mensagem: 'Erro interno ao buscar formação.' });
+  }
+});
+
+
+routerFormacao.get('/:id/certificado', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const formacao = await buscarCertificadoPorId(id); // nova função para buscar o certificado
+    if (!formacao || !formacao.certificado) {
+      return res.status(404).json({ erro: 'Certificado não encontrado.' });
+    }
+
+    res.setHeader('Content-Type', 'application/image/jpeg'); // ou 'image/jpeg' se for imagem
+    res.send(formacao.certificado);
+  } catch (erro) {
+    console.error('Erro ao buscar certificado:', erro);
+    res.status(500).json({ erro: 'Erro ao buscar certificado.' });
   }
 });
 

@@ -101,8 +101,6 @@ routerFuncionario.get('/:id/fotoPerfil', async (req, res) => {
 });
 
 
-
-
 routerFuncionario.post('/', upload.fields([
   { name: 'certificado', maxCount: 1 },
   { name: 'fotoPerfil', maxCount: 1 }
