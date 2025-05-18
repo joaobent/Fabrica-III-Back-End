@@ -1,18 +1,19 @@
 // Aqui serÃo colocadas todos os endpoints da API
 
 import express from 'express';
-// import pool from './servico/conexao.js';
-// const swaggerUi = require('swagger-ui-express');
-// import swaggerFile from './swagger-output.json' assert { type: 'json' };
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
-// import { setupSwagger } from './swagger.js';
-// setupSwagger(app);
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
 
 const app = express();
+app.use(express.json());
 
-app.use(express.json()); 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+
+
 import routerEndereco from './ana/rotas/endereco.js';
 import routerFuncionario from './ana/rotas/funcionarios.js';
 import routerFrequencia from './maria/rotas/frequencia.js';
