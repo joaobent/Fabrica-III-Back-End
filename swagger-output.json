@@ -331,9 +331,9 @@
     "/endereco/{id}": {
       "get": {
         "tags": [
-          "Carro"
+          "Endereços"
         ],
-        "description": "Retorna a imagem de um carro pelo ID da imagem",
+        "description": "Retorna o endereço pelo ID do funcionário",
         "parameters": [
           {
             "name": "id",
@@ -342,69 +342,25 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "idImagem",
-            "in": "path",
-            "description": "ID da imagem do carro",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Imagem do carro encontrada com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "example": "string"
-                    },
-                    "format": {
-                      "type": "string",
-                      "example": "binary"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "example": "string"
-                    },
-                    "format": {
-                      "type": "string",
-                      "example": "binary"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           },
           "404": {
-            "description": "Imagem não encontrada"
+            "description": "Não Encontrado"
           },
           "500": {
-            "description": "Erro interno ao buscar a imagem"
+            "description": "Erro Interno do Servidor"
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Endereços"
+        ],
+        "description": "Deleta o endereço pelo ID",
         "parameters": [
           {
             "name": "id",
@@ -433,7 +389,10 @@
     },
     "/endereco/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Endereços"
+        ],
+        "description": "Retorna todos os endereços",
         "responses": {
           "200": {
             "description": "OK"
