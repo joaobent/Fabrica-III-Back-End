@@ -6,35 +6,134 @@ const routerFuncionario= express.Router();
 import { retornaFuncionarios, retornaFuncionariosPorNome, retornaFuncionarioPorid, buscarFotoPerfilPorId} from '../servicos/funcionariosServicos/buscar.js';
 import { cadastrarFuncionario } from '../servicos/funcionariosServicos/adicionar.js';
 import { deletarFuncionarioPorId } from '../servicos/funcionariosServicos/deletar.js';
-import { atualizarFuncionario } from '../servicos/funcionariosServicos/editar.js';
+import { atualizarFuncionario, atualizarFuncionarioParcial} from '../servicos/funcionariosServicos/editar.js';
 import { validarFuncionario, validarAtualizacaoFuncionario} from '../validacao/validacaoFuncionario.js'
 
 
-routerFuncionario.put('/:id',upload.fields([
-  { name: 'certificado', maxCount: 1 },
-  { name: 'fotoPerfil', maxCount: 1 }
-]), async (req, res) => {
+
+routerFuncionario.patch('/:id', upload.fields([
+  { name: 'fotoPerfil', maxCount: 1 },
+  { name: 'certificado', maxCount: 1 }
+]), async (req, res, next) => {
   const id = req.params.id;
-  const dados = req.body;
 
-  const funcionarioExistente = await retornaFuncionarioPorid(id);
+  const {
+    nome,
+    senha,
+    cpf,
+    dataDeNascimento,
+    email,
+    telefone,
+    cep,
+    numeroCasa,
+    complemento,
+    formacao,
+    idEndereco,
+    idFormacao
+  } = req.body;
 
+  const fotoPerfilBuffer = req.files?.fotoPerfil?.[0]?.buffer;
+  const certificadoBuffer = req.files?.certificado?.[0]?.buffer;
 
-  if (!funcionarioExistente) {
-    return res.status(404).json({ erro: 'Funcionário não encontrado para o ID informado.' });
-  }
+  // Monta objeto dados para atualização parcial
+  const dados = {};
 
+  if (nome !== undefined) dados.nome = nome;
+  if (senha !== undefined) dados.senha = senha;
+  if (cpf !== undefined) dados.cpf = cpf;
+  if (dataDeNascimento !== undefined) dados.dataDeNascimento = dataDeNascimento;
+  if (email !== undefined) dados.email = email;
+  if (telefone !== undefined) dados.telefone = telefone;
+  if (fotoPerfilBuffer !== undefined) dados.fotoPerfil = fotoPerfilBuffer;
+
+  if (cep !== undefined || numeroCasa !== undefined || complemento !== undefined || idEndereco !== undefined) {
+  dados.endereco = {};
+  if (cep !== undefined) dados.endereco.cep = cep;
+  if (numeroCasa !== undefined) dados.endereco.numeroCasa = numeroCasa;
+  if (complemento !== undefined) dados.endereco.complemento = complemento;
+  if (idEndereco !== undefined) dados.endereco.idEndereco = Number(idEndereco); // ✅ Aqui está certo
+}
+
+  if (formacao !== undefined || certificadoBuffer !== undefined || idFormacao !== undefined) {
+  dados.formacao = {};
+  if (formacao !== undefined) dados.formacao.formacao = formacao;
+  if (certificadoBuffer !== undefined) dados.formacao.certificado = certificadoBuffer;
+  if (idFormacao !== undefined) dados.formacao.idFormacao = Number(idFormacao); // ✅ Correto
+}
+
+  // Chama sua função de validação para update parcial
   const erros = validarAtualizacaoFuncionario(dados);
+
   if (erros.length > 0) {
-    return res.status(400).json({ mensagem: "Erro de validação", erros });
+    return res.status(400).json({ erros });
   }
 
   try {
-    const resultado = await atualizarFuncionario(id, dados);
-    res.status(200).json({ mensagem: 'Funcionário atualizado com sucesso.', resultado });
+    const resultado = await atualizarFuncionarioParcial(id, dados);
+
+    if (resultado) {
+      res.status(200).json({ mensagem: 'Funcionário atualizado com sucesso!' });
+    } else {
+      res.status(404).json({ mensagem: 'Funcionário não encontrado ou nenhum dado alterado.' });
+    }
   } catch (erro) {
     console.error('Erro ao atualizar funcionário:', erro);
-    res.status(500).json({ erro: 'Erro interno ao atualizar funcionário.' });
+    res.status(500).json({ mensagem: 'Erro interno no servidor.' });
+  }
+});
+
+routerFuncionario.put('/:id', upload.fields([
+  { name: 'fotoPerfil', maxCount: 1 },
+  { name: 'certificado', maxCount: 1 }
+]), validarAtualizacaoFuncionario, async (req, res) => {
+  const id = req.params.id;
+
+  const {
+    nome,
+    senha,
+    cpf,
+    dataDeNascimento,
+    email,
+    telefone,
+    cep,
+    numeroCasa,
+    complemento,
+    formacao
+  } = req.body;
+
+  const fotoPerfilBuffer = req.files?.fotoPerfil?.[0]?.buffer;
+  const certificadoBuffer = req.files?.certificado?.[0]?.buffer;
+
+  const dados = {
+    nome,
+    senha,
+    cpf,
+    dataDeNascimento,
+    email,
+    telefone,
+    fotoPerfil: fotoPerfilBuffer,
+    endereco: {
+      cep,
+      numeroCasa,
+      complemento
+    },
+    formacao: {
+      formacao,
+      certificado: certificadoBuffer
+    }
+  };
+
+  try {
+    const resultado = await atualizarFuncionario(id, dados);
+
+    if (resultado) {
+      res.status(200).json({ mensagem: 'Funcionário atualizado com sucesso!' });
+    } else {
+      res.status(404).json({ mensagem: 'Funcionário não encontrado ou nenhum dado alterado.' });
+    }
+  } catch (erro) {
+    console.error('Erro ao atualizar funcionário:', erro);
+    res.status(500).json({ mensagem: 'Erro interno no servidor.' });
   }
 });
 
