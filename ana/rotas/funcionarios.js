@@ -15,24 +15,50 @@ routerFuncionario.patch('/:id', upload.fields([
   { name: 'fotoPerfil', maxCount: 1 },
   { name: 'certificado', maxCount: 1 }
 ]), async (req, res, next) => {
-  // #swagger.tags = ['Funcionário']
-// #swagger.description = 'Atualiza parcialmente os dados de um funcionário pelo ID.'
+ // #swagger.tags = ['Funcionários']
+// #swagger.description = 'Atualiza parcialmente um funcionário pelo ID.'
 // #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
+/* #swagger.requestBody = {
+    required: true,
+    content: {
+      "multipart/form-data": {
+        schema: {
+          type: "object",
+          properties: {
+            nome: { type: "string", example: "João Silva" },
+            senha: { type: "string", example: "novaSenha123" },
+            cpf: { type: "string", example: "12345678900" },
+            dataDeNascimento: { type: "string", format: "date", example: "1990-05-20" },
+            email: { type: "string", example: "joao.silva@email.com" },
+            telefone: { type: "string", example: "(11) 91234-5678" },
+            cep: { type: "string", example: "01001-000" },
+            numeroCasa: { type: "string", example: "123A" },
+            complemento: { type: "string", example: "Apto 45" },
+            idEndereco: { type: "integer", example: 1 },
+            formacao: { type: "string", example: "Educação Física" },
+            idFormacao: { type: "integer", example: 2 },
+            fotoPerfil: { type: "string", format: "binary" },
+            certificado: { type: "string", format: "binary" }
+          }
+        }
+      }
+    }
+} */
 /* #swagger.responses[200] = {
-      description: 'Funcionário atualizado com sucesso.',
-      schema: { mensagem: 'Funcionário atualizado com sucesso!' }
+    description: 'Funcionário atualizado com sucesso.',
+    schema: { mensagem: 'Funcionário atualizado com sucesso!' }
 } */
 /* #swagger.responses[400] = {
-      description: 'Erro de validação.',
-      schema: { erros: ['Campo inválido'] }
+    description: 'Erro de validação nos dados enviados.',
+    schema: { erros: ["campo X é obrigatório"] }
 } */
 /* #swagger.responses[404] = {
-      description: 'Funcionário não encontrado.',
-      schema: { mensagem: 'Funcionário não encontrado ou nenhum dado alterado.' }
+    description: 'Funcionário não encontrado ou nenhum dado alterado.',
+    schema: { mensagem: 'Funcionário não encontrado ou nenhum dado alterado.' }
 } */
 /* #swagger.responses[500] = {
-      description: 'Erro interno ao atualizar funcionário.',
-      schema: { mensagem: 'Erro interno no servidor.' }
+    description: 'Erro interno no servidor.',
+    schema: { mensagem: 'Erro interno no servidor.' }
 } */
   const id = req.params.id;
 
@@ -102,24 +128,60 @@ routerFuncionario.patch('/:id', upload.fields([
 });
 
 routerFuncionario.put('/:id', upload.fields([
+  // #swagger.tags = ['Funcionários']
+  // #swagger.description = 'Atualiza completamente os dados de um funcionário.'
+  // #swagger.consumes = ['multipart/form-data']
+  // #swagger.parameters['id'] = {
+  //   in: 'path',
+  //   description: 'ID do funcionário',
+  //   required: true,
+  //   type: 'string',
+  //   example: '3'
+  // }
+
+  /* #swagger.requestBody = {
+      required: true,
+      content: {
+        "multipart/form-data": {
+          schema: {
+            type: "object",
+            properties: {
+              nome: { type: "string", example: "Pedro Henrique" },
+              senha: { type: "string", example: "novaSenha789" },
+              cpf: { type: "string", example: "123.456.789-00" },
+              dataDeNascimento: { type: "string", format: "date", example: "1995-03-20" },
+              email: { type: "string", example: "pedro.henrique@email.com" },
+              telefone: { type: "string", example: "(11) 98765-4321" },
+              cep: { type: "string", example: "01001-000" },
+              numeroCasa: { type: "string", example: "123A" },
+              complemento: { type: "string", example: "Apto 101" },
+              formacao: { type: "string", example: "Educação Física" },
+              fotoPerfil: { type: "string", format: "binary" },
+              certificado: { type: "string", format: "binary" }
+            }
+          }
+        }
+      }
+  } */
+
+  /* #swagger.responses[200] = {
+      description: 'Funcionário atualizado com sucesso.',
+      schema: { mensagem: 'Funcionário atualizado com sucesso' }
+  } */
+  /* #swagger.responses[404] = {
+      description: 'Funcionário não encontrado.',
+      schema: { mensagem: 'Funcionário não encontrado' }
+  } */
+  /* #swagger.responses[500] = {
+      description: 'Erro ao atualizar funcionário.',
+      schema: { mensagem: 'Erro interno no servidor.' }
+  } */
   { name: 'fotoPerfil', maxCount: 1 },
   { name: 'certificado', maxCount: 1 }
 ]), validarAtualizacaoFuncionario, async (req, res) => {
-  // #swagger.tags = ['Funcionário']
-// #swagger.description = 'Atualiza completamente os dados de um funcionário pelo ID.'
-// #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
-/* #swagger.responses[200] = {
-      description: 'Funcionário atualizado com sucesso.',
-      schema: { mensagem: 'Funcionário atualizado com sucesso!' }
-} */
-/* #swagger.responses[404] = {
-      description: 'Funcionário não encontrado.',
-      schema: { mensagem: 'Funcionário não encontrado ou nenhum dado alterado.' }
-} */
-/* #swagger.responses[500] = {
-      description: 'Erro interno ao atualizar funcionário.',
-      schema: { mensagem: 'Erro interno no servidor.' }
-} */
+  
+
+
   const id = req.params.id;
 
   const {
@@ -173,7 +235,7 @@ routerFuncionario.put('/:id', upload.fields([
 
 
 routerFuncionario.get('/', async (req, res) => {
-  // #swagger.tags = ['Funcionário']
+  // #swagger.tags = ['Funcionários']
 // #swagger.description = 'Retorna todos os funcionários ou filtra por nome usando query.'
 // #swagger.parameters['nome'] = { in: 'query', description: 'Nome do funcionário para filtrar', required: false, type: 'string' }
 /* #swagger.responses[200] = {
@@ -218,7 +280,7 @@ routerFuncionario.get('/', async (req, res) => {
 });
 
 routerFuncionario.get('/:id', async (req, res) => {
-  // #swagger.tags = ['Funcionário']
+  // #swagger.tags = ['Funcionários']
 // #swagger.description = 'Retorna os dados de um funcionário pelo ID.'
 // #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
 /* #swagger.responses[200] = {
@@ -252,7 +314,7 @@ routerFuncionario.get('/:id', async (req, res) => {
 
 
 routerFuncionario.get('/:id/fotoPerfil', async (req, res) => {
-  // #swagger.tags = ['Funcionário']
+  // #swagger.tags = ['Funcionários']
 // #swagger.description = 'Retorna a foto de perfil do funcionário pelo ID.'
 // #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
 /* #swagger.responses[200] = {
@@ -286,19 +348,43 @@ routerFuncionario.post('/', upload.fields([
   { name: 'certificado', maxCount: 1 },
   { name: 'fotoPerfil', maxCount: 1 }
 ]), async (req, res) => {
-  // #swagger.tags = ['Funcionário']
+  // #swagger.tags = ['Funcionários']
 // #swagger.description = 'Cadastra um novo funcionário.'
+/* #swagger.requestBody = {
+    required: true,
+    content: {
+      "multipart/form-data": {
+        schema: {
+          type: "object",
+          properties: {
+            nome: { type: "string", example: "Maria Oliveira" },
+            senha: { type: "string", example: "senhaForte456" },
+            cpf: { type: "string", example: "987.654.321-00" },
+            dataDeNascimento: { type: "string", format: "date", example: "1988-11-15" },
+            email: { type: "string", example: "maria.oliveira@email.com" },
+            telefone: { type: "string", example: "(21) 99876-5432" },
+            cep: { type: "string", example: "22041-001" },
+            numeroCasa: { type: "string", example: "456B" },
+            complemento: { type: "string", example: "Casa dos fundos" },
+            formacao: { type: "string", example: "Fisioterapia" },
+            certificado: { type: "string", format: "binary" },
+            fotoPerfil: { type: "string", format: "binary" }
+          }
+        }
+      }
+    }
+} */
 /* #swagger.responses[201] = {
-      description: 'Funcionário cadastrado com sucesso.',
-      schema: { mensagem: 'Funcionário cadastrado com sucesso', id: 1 }
+    description: 'Funcionário cadastrado com sucesso.',
+    schema: { mensagem: 'Funcionário cadastrado com sucesso', id: 1 }
 } */
 /* #swagger.responses[400] = {
-      description: 'Erro de validação.',
-      schema: { mensagem: 'Erro de validação', erros: ['Campo obrigatório'] }
+    description: 'Erro de validação.',
+    schema: { mensagem: 'Erro de validação', erros: ['Campo obrigatório'] }
 } */
 /* #swagger.responses[500] = {
-      description: 'Erro ao cadastrar funcionário.',
-      schema: { erro: 'Erro ao cadastrar funcionário' }
+    description: 'Erro ao cadastrar funcionário.',
+    schema: { erro: 'Erro ao cadastrar funcionário' }
 } */
   const {
     nome,
@@ -356,20 +442,26 @@ routerFuncionario.post('/', upload.fields([
 });
 
 routerFuncionario.delete('/:id', async (req, res)=> {
-  // #swagger.tags = ['Funcionário']
+  // #swagger.tags = ['Funcionários']
 // #swagger.description = 'Deleta um funcionário pelo ID.'
-// #swagger.parameters['id'] = { in: 'path', description: 'ID do funcionário', required: true, type: 'string' }
+// #swagger.parameters['id'] = {
+//   in: 'path',
+//   description: 'ID do funcionário',
+//   required: true,
+//   type: 'string',
+//   example: '3'
+// }
 /* #swagger.responses[200] = {
-      description: 'Funcionário deletado com sucesso.',
-      schema: { mensagem: 'Funcionário deletado com sucesso' }
+    description: 'Funcionário deletado com sucesso.',
+    schema: { mensagem: 'Funcionário deletado com sucesso' }
 } */
 /* #swagger.responses[404] = {
-      description: 'Funcionário não encontrado.',
-      schema: { mensagem: 'Funcionário não encontrado' }
+    description: 'Funcionário não encontrado.',
+    schema: { mensagem: 'Funcionário não encontrado' }
 } */
 /* #swagger.responses[500] = {
-      description: 'Erro interno ao deletar funcionário.',
-      schema: { mensagem: 'Erro interno no servidor' }
+    description: 'Erro interno ao deletar funcionário.',
+    schema: { mensagem: 'Erro interno no servidor' }
 } */
   const id = req.params.id;
 

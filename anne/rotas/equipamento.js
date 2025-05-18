@@ -8,6 +8,35 @@ import { editarEquipamentos } from '../servicos/equipamentoServicos/editar.js';
 const routerEquipamentos = express.Router();
 
 routerEquipamentos.put('/:id', async (req, res) => {
+    // #swagger.tags = ['Equipamentos']
+// #swagger.description = 'Atualiza apenas o nome de um equipamento pelo ID.'
+// #swagger.parameters['id'] = {
+//   in: 'path',
+//   description: 'ID do equipamento a ser editado.',
+//   required: true,
+//   type: 'integer',
+//   example: 2
+// }
+// #swagger.parameters['body'] = {
+//   in: 'body',
+//   description: 'Novo nome do equipamento.',
+//   required: true,
+//   schema: {
+//     nome: 'Esteira Elétrica Pro'
+//   }
+// }
+/* #swagger.responses[200] = {
+    description: 'Equipamento atualizado com sucesso.',
+    schema: { mensagem: 'Equipamentos editada com sucesso!' }
+} */
+/* #swagger.responses[400] = {
+    description: 'Erro de validação.',
+    schema: { mensagem: 'ID inválido ou nome inválido.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Equipamento não encontrado.',
+    schema: { mensagem: 'Equipamentos não encontrado' }
+} */
     const { id } = req.params;
     const { nome } = req.body;
 
@@ -33,6 +62,39 @@ routerEquipamentos.put('/:id', async (req, res) => {
 });
 
 routerEquipamentos.patch('/:id', async (req, res) => {
+    // #swagger.tags = ['Equipamentos']
+// #swagger.description = 'Atualiza parcialmente os dados de um equipamento.'
+// #swagger.parameters['id'] = {
+//   in: 'path',
+//   description: 'ID do equipamento.',
+//   required: true,
+//   type: 'integer',
+//   example: 1
+// }
+// #swagger.parameters['body'] = {
+//   in: 'body',
+//   description: 'Campos que podem ser atualizados.',
+//   required: true,
+//   schema: {
+//     nome: 'Bicicleta Ergométrica Pro',
+//     tipo: 'Cardio',
+//     numeroDIncricao: 'INSCR123',
+//     descricao: 'Aparelho para treino cardiovascular',
+//     marca_idmarca: 4
+//   }
+// }
+/* #swagger.responses[200] = {
+    description: 'Equipamento atualizado com sucesso.',
+    schema: { mensagem: 'Equipamento atualizado com sucesso!' }
+} */
+/* #swagger.responses[400] = {
+    description: 'Dados inválidos.',
+    schema: { mensagem: 'ID inválido ou nenhum dado fornecido para atualização.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Equipamento não encontrado.',
+    schema: { mensagem: 'Equipamento não encontrado' }
+} */
     const { id } = req.params;
     const { nome, tipo, numeroDIncricao, descricao, marca_idmarca } = req.body;
 
@@ -66,6 +128,32 @@ routerEquipamentos.patch('/:id', async (req, res) => {
 
 
 routerEquipamentos.post('/', async (req, res) => {
+    // #swagger.tags = ['Equipamentos']
+// #swagger.description = 'Cadastra um novo equipamento.'
+// #swagger.parameters['body'] = {
+//   in: 'body',
+//   description: 'Dados do novo equipamento.',
+//   required: true,
+//   schema: {
+//     nome: 'Cadeira Extensora',
+//     tipo: 'Musculação',
+//     numeroDeInscricao: 'EQP456',
+//     descricao: 'Equipamento para exercícios de perna',
+//     marca_idmarca: 2
+//   }
+// }
+/* #swagger.responses[201] = {
+    description: 'Equipamento cadastrado com sucesso.',
+    schema: { mensagem: 'Equipamento cadastrado com sucesso!' }
+} */
+/* #swagger.responses[400] = {
+    description: 'Erro de validação.',
+    schema: { mensagem: 'Todos os campos são obrigatórios.' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno do servidor.',
+    schema: { mensagem: 'Erro interno do servidor.' }
+} */
     const { nome, tipo, numeroDeInscricao, descricao, marca_idmarca } = req.body;
 
     if (!nome || !tipo || !numeroDeInscricao || !descricao || !marca_idmarca) {
@@ -88,6 +176,33 @@ routerEquipamentos.post('/', async (req, res) => {
 
 
 routerEquipamentos.get('/', async (req, res) => {
+    // #swagger.tags = ['Equipamentos']
+// #swagger.description = 'Lista todos os equipamentos ou filtra por nome.'
+// #swagger.parameters['nome'] = {
+//   in: 'query',
+//   description: 'Nome do equipamento para busca.',
+//   required: false,
+//   type: 'string',
+//   example: 'Esteira'
+// }
+/* #swagger.responses[200] = {
+    description: 'Lista de equipamentos encontrada.',
+    schema: {
+      dados: [
+        {
+          id: 1,
+          nome_modelo: 'Esteira Elétrica Pro',
+          tipo: 'Cardio',
+          descricao: 'Para corrida',
+          marca_idmarca: 3
+        }
+      ]
+    }
+} */
+/* #swagger.responses[404] = {
+    description: 'Nenhum equipamento encontrado com esse nome.',
+    schema: { mensagem: 'Equipamento com esse nome não encontrado' }
+} */
     const { nome } = req.query;
 
     const resultado = nome
@@ -102,6 +217,37 @@ routerEquipamentos.get('/', async (req, res) => {
 });
 
 routerEquipamentos.get('/:id', async (req, res) => {
+    // #swagger.tags = ['Equipamentos']
+// #swagger.description = 'Busca um equipamento pelo ID.'
+// #swagger.parameters['id'] = {
+//   in: 'path',
+//   description: 'ID do equipamento.',
+//   required: true,
+//   type: 'integer',
+//   example: 5
+// }
+/* #swagger.responses[200] = {
+    description: 'Equipamento encontrado.',
+    schema: {
+      dados: [
+        {
+          id: 5,
+          nome_modelo: 'Leg Press',
+          tipo: 'Musculação',
+          descricao: 'Exercício para pernas',
+          marca_idmarca: 1
+        }
+      ]
+    }
+} */
+/* #swagger.responses[400] = {
+    description: 'ID inválido.',
+    schema: { mensagem: 'ID inválido' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Equipamento não encontrado.',
+    schema: { mensagem: 'Equipamento não encontrado' }
+} */
     const { id } = req.params;
 
     if (isNaN(id)) {
@@ -117,6 +263,27 @@ routerEquipamentos.get('/:id', async (req, res) => {
 });
 
 routerEquipamentos.delete('/:id', async (req, res) => {
+    // #swagger.tags = ['Equipamentos']
+// #swagger.description = 'Remove um equipamento pelo ID.'
+// #swagger.parameters['id'] = {
+//   in: 'path',
+//   description: 'ID do equipamento a ser deletado.',
+//   required: true,
+//   type: 'integer',
+//   example: 3
+// }
+/* #swagger.responses[200] = {
+    description: 'Equipamento deletado com sucesso.',
+    schema: { mensagem: 'Equipamento deletado com sucesso!' }
+} */
+/* #swagger.responses[400] = {
+    description: 'ID inválido.',
+    schema: { mensagem: 'ID inválido' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Equipamento não encontrado.',
+    schema: { mensagem: 'Equipamento não encontrado' }
+} */
     const { id } = req.params;
 
     if (isNaN(id)) {

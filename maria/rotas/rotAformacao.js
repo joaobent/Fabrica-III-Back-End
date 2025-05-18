@@ -12,7 +12,29 @@ const routerFormacao = express.Router();
 const upload = multer(); // Para lidar com arquivos (certificados)
 
 routerFormacao.get('/', async (req, res) => {
-
+  // #swagger.tags = ['Formação']
+// #swagger.description = 'Retorna a lista de todas as formações cadastradas, sem os certificados.'
+/* #swagger.responses[200] = {
+    description: 'Lista de formações retornada com sucesso.',
+    schema: [
+      {
+        id: 1,
+        nome: 'Engenharia de Software',
+        instituicao: 'Universidade XYZ',
+        anoConclusao: 2020
+      },
+      {
+        id: 2,
+        nome: 'Análise de Sistemas',
+        instituicao: 'Faculdade ABC',
+        anoConclusao: 2018
+      }
+    ]
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno ao buscar formações.',
+    schema: { mensagem: 'Erro interno ao buscar formações.' }
+} */
   try {
     const formacoes = await buscarFormacao();
 
@@ -29,6 +51,34 @@ routerFormacao.get('/', async (req, res) => {
 });
 
 routerFormacao.get('/:id', async (req, res) => {
+  // #swagger.tags = ['Formação']
+// #swagger.description = 'Retorna a formação pelo ID, sem o certificado.'
+/* #swagger.parameters['id'] = {
+    description: 'ID da formação',
+    type: 'integer',
+    required: true
+} */
+/* #swagger.responses[200] = {
+    description: 'Formação retornada com sucesso.',
+    schema: {
+      id: 1,
+      nome: 'Engenharia de Software',
+      instituicao: 'Universidade XYZ',
+      anoConclusao: 2020
+    }
+} */
+/* #swagger.responses[400] = {
+    description: 'ID inválido.',
+    schema: { mensagem: 'ID inválido.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Formação não encontrada.',
+    schema: { mensagem: 'Formação não encontrada.' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno ao buscar formação.',
+    schema: { mensagem: 'Erro interno ao buscar formação.' }
+} */
   const { id } = req.params;
 
   if (isNaN(id) || id <= 0) {
@@ -55,6 +105,27 @@ routerFormacao.get('/:id', async (req, res) => {
 
 
 routerFormacao.get('/:id/certificado', async (req, res) => {
+  // #swagger.tags = ['Formação']
+// #swagger.description = 'Retorna o certificado da formação pelo ID.'
+/* #swagger.parameters['id'] = {
+    description: 'ID da formação',
+    type: 'integer',
+    required: true
+} */
+/* #swagger.responses[200] = {
+    description: 'Certificado retornado com sucesso.',
+    content: {
+      'image/jpeg': {}
+    }
+} */
+/* #swagger.responses[404] = {
+    description: 'Certificado não encontrado.',
+    schema: { erro: 'Certificado não encontrado.' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro ao buscar certificado.',
+    schema: { erro: 'Erro ao buscar certificado.' }
+} */
   const id = req.params.id;
 
   try {
@@ -72,6 +143,33 @@ routerFormacao.get('/:id/certificado', async (req, res) => {
 });
 
 routerFormacao.post('/', upload.single('certificado'), async (req, res) => {
+  // #swagger.tags = ['Formação']
+// #swagger.description = 'Cadastra uma nova formação com certificado (upload do arquivo).'
+// #swagger.consumes = ['multipart/form-data']
+/* #swagger.parameters['formacao'] = { 
+    in: 'formData',
+    type: 'string',
+    description: 'Dados da formação em formato JSON',
+    required: true
+} */
+/* #swagger.parameters['certificado'] = { 
+    in: 'formData',
+    type: 'file',
+    description: 'Arquivo do certificado',
+    required: true
+} */
+/* #swagger.responses[201] = {
+    description: 'Formação cadastrada com sucesso.',
+    schema: { mensagem: 'Formação cadastrada com sucesso', id: 1 }
+} */
+/* #swagger.responses[400] = {
+    description: 'Dados incompletos.',
+    schema: { mensagem: 'Dados incompletos.' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno no servidor.',
+    schema: { mensagem: 'Erro interno no servidor.' }
+} */
   const { formacao } = req.body;
   const certificado = req.file?.buffer;
 
@@ -90,6 +188,39 @@ routerFormacao.post('/', upload.single('certificado'), async (req, res) => {
 
 // Rota para atualizar uma formação existente
 routerFormacao.put('/:id', upload.single('certificado'), async (req, res) => {
+  // #swagger.tags = ['Formação']
+// #swagger.description = 'Atualiza completamente uma formação pelo ID (dados + certificado opcional).'
+// #swagger.consumes = ['multipart/form-data']
+/* #swagger.parameters['id'] = { description: 'ID da formação' } */
+/* #swagger.parameters['formacao'] = { 
+    in: 'formData',
+    type: 'string',
+    description: 'Dados da formação em formato JSON',
+    required: true
+} */
+/* #swagger.parameters['certificado'] = { 
+    in: 'formData',
+    type: 'file',
+    description: 'Arquivo do certificado (opcional)',
+    required: false
+} */
+/* #swagger.responses[200] = {
+    description: 'Formação atualizada com sucesso.',
+    schema: { mensagem: 'Formação atualizada com sucesso' }
+} */
+/* #swagger.responses[400] = {
+    description: 'ID inválido ou dados incompletos.',
+    schema: { mensagem: 'ID inválido.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Formação não encontrada para atualizar.',
+    schema: { mensagem: 'Formação não encontrada para atualizar' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno no servidor.',
+    schema: { mensagem: 'Erro interno no servidor' }
+} */
+
     const idformacao = req.params.id;
     const { formacao } = req.body;
     const certificado = req.file ? req.file.buffer : null;
@@ -127,6 +258,38 @@ routerFormacao.put('/:id', upload.single('certificado'), async (req, res) => {
 });
 
 routerFormacao.patch('/:id', async (req, res) => {
+  // #swagger.tags = ['Formação']
+// #swagger.description = 'Atualiza parcialmente uma formação pelo ID (pode enviar dados ou certificado).'
+// #swagger.consumes = ['application/json']
+/* #swagger.parameters['id'] = { description: 'ID da formação' } */
+/* #swagger.parameters['dados'] = {
+    in: 'body',
+    description: 'Campos para atualização parcial (formacao e/ou certificado em base64, dependendo da implementação)',
+    schema: {
+      type: 'object',
+      properties: {
+        formacao: { type: 'string' },
+        certificado: { type: 'string' }
+      }
+    },
+    required: true
+} */
+/* #swagger.responses[200] = {
+    description: 'Formação atualizada parcialmente com sucesso.',
+    schema: { mensagem: 'Formação atualizada parcialmente com sucesso.' }
+} */
+/* #swagger.responses[400] = {
+    description: 'ID inválido ou dados inválidos.',
+    schema: { mensagem: 'ID inválido.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Formação não encontrada.',
+    schema: { mensagem: 'Formação não encontrada.' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno no servidor.',
+    schema: { mensagem: 'Erro interno no servidor.' }
+} */
   const { id } = req.params;
   const  dados = req.body;
 
@@ -166,6 +329,21 @@ routerFormacao.patch('/:id', async (req, res) => {
 
 
 routerFormacao.delete('/:id', async (req, res) => {
+  // #swagger.tags = ['Formação']
+// #swagger.description = 'Deleta uma formação pelo ID.'
+/* #swagger.parameters['id'] = { description: 'ID da formação' } */
+/* #swagger.responses[200] = {
+    description: 'Formação deletada com sucesso.',
+    schema: { mensagem: 'Formação deletada com sucesso' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Formação não encontrada.',
+    schema: { mensagem: 'Formação não encontrada' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno no servidor.',
+    schema: { mensagem: 'Erro interno no servidor' }
+} */
     const idformacao = req.params.id;
 
     try {

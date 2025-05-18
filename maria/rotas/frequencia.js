@@ -15,32 +15,30 @@ const app = express();
 // ESSA LINHA É ESSENCIAL:
 app.use(express.json());
 
-/**
- * @swagger
- * /frequencia:
- *   get:
- *     summary: Retorna todas as frequências
- *     responses:
- *       200:
- *         description: Lista de frequências
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   idfrequencia:
- *                     type: integer
- *                   dataEntrada:
- *                     type: string
- *                   dataSaida:
- *                     type: string
- *                   clientes_idclientes:
- *                     type: integer
- */
+
 
 routerFrequencia.get('/', async (req, res) => {
+  // #swagger.tags = ['Frequência']
+// #swagger.description = 'Retorna a lista de todas as frequências cadastradas.'
+/* #swagger.responses[200] = {
+    description: 'Lista de frequências retornada com sucesso.',
+    schema: [
+      {
+        idfrequencia: 1,
+        clientes_idclientes: 10,
+        dataEntrada: '2024-05-01T10:00:00Z',
+        dataSaida: '2024-05-01T11:00:00Z'
+      }
+    ]
+} */
+/* #swagger.responses[404] = {
+    description: 'Nenhuma frequência encontrada.',
+    schema: { mensagem: 'Frequência não encontrada' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno ao buscar frequências.',
+    schema: { mensagem: 'Erro interno no servidor' }
+} */
   const { id } = req.params;
 
     try {
@@ -56,33 +54,36 @@ routerFrequencia.get('/', async (req, res) => {
     }
 });
 
-/**
- * @swagger
- * /frequencia/{id}:
- *   get:
- *     tags: [Frequência]
- *     summary: Busca uma frequência por ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Frequência encontrada
- *         content:
- *           application/json:
- *             example:
- *               idfrequencia: 1
- *               idcliente: 2
- *               data: "2025-05-10"
- *               horaentrada: "08:00"
- *               horasaida: "09:00"
- */
+
 
 // Rota para buscar uma frequência por ID
 routerFrequencia.get('/:id', async (req, res) => {
+  // #swagger.tags = ['Frequência']
+// #swagger.description = 'Busca uma frequência específica pelo ID.'
+/* #swagger.parameters['id'] = {
+    in: 'path',
+    description: 'ID da frequência',
+    required: true,
+    type: 'integer'
+} */
+/* #swagger.responses[200] = {
+    description: 'Frequência encontrada com sucesso.',
+    schema: {
+      idfrequencia: 1,
+      clientes_idclientes: 10,
+      dataEntrada: '2024-05-01T10:00:00Z',
+      dataSaida: '2024-05-01T11:00:00Z'
+    }
+} */
+/* #swagger.responses[400] = {
+    description: 'ID inválido.',
+    schema: { mensagem: 'ID inválido.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Frequência não encontrada.',
+    schema: { mensagem: 'Frequência não encontrada' }
+} */
+
     const { id } = req.params;
 
   if (isNaN(id) || id <= 0) {
@@ -104,34 +105,35 @@ routerFrequencia.get('/:id', async (req, res) => {
 });
 
 
-/**
- * @swagger
- * /frequencia/cliente/{idcliente}:
- *   get:
- *     tags: [Frequência]
- *     summary: Lista as frequências de um cliente específico
- *     parameters:
- *       - in: path
- *         name: idcliente
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID do cliente
- *     responses:
- *       200:
- *         description: Lista de frequências do cliente
- *         content:
- *           application/json:
- *             example:
- *               - idfrequencia: 3
- *                 idcliente: 2
- *                 data: "2025-05-15"
- *                 horaentrada: "07:30"
- *                 horasaida: "08:30"
- */
-
 // GET - Frequências por ID do Cliente
 routerFrequencia.get('/cliente/:id', async (req, res) => {
+  // #swagger.tags = ['Frequência']
+// #swagger.description = 'Retorna todas as frequências relacionadas a um cliente específico.'
+/* #swagger.parameters['id'] = {
+    in: 'path',
+    description: 'ID do cliente',
+    required: true,
+    type: 'integer'
+} */
+/* #swagger.responses[200] = {
+    description: 'Lista de frequências do cliente retornada com sucesso.',
+    schema: [
+      {
+        idfrequencia: 1,
+        clientes_idclientes: 10,
+        dataEntrada: '2024-05-01T10:00:00Z',
+        dataSaida: '2024-05-01T11:00:00Z'
+      }
+    ]
+} */
+/* #swagger.responses[400] = {
+    description: 'ID do cliente inválido.',
+    schema: { mensagem: 'ID do cliente inválido.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Nenhuma frequência encontrada para o cliente.',
+    schema: { mensagem: 'Nenhuma frequência encontrada para este cliente.' }
+} */
   const { id } = req.params;
 
   if (isNaN(id) || id <= 0) {
@@ -152,31 +154,36 @@ routerFrequencia.get('/cliente/:id', async (req, res) => {
   }
 });
 
-/**
- * @swagger
- * /frequencia:
- *   post:
- *     tags: [Frequência]
- *     summary: Cadastra uma nova frequência
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           example:
- *             idcliente: 2
- *             data: "2025-05-18"
- *             horaentrada: "07:00"
- *             horasaida: "08:00"
- *     responses:
- *       201:
- *         description: Frequência cadastrada com sucesso
- */
+
 
 // Usando o bodyParser para lidar com JSON
 app.use(bodyParser.json());  // Isso vai garantir que o body seja interpretado corretamente
 
 // Rota POST para criação de frequência
 routerFrequencia.post('/', async (req, res) => {
+  // #swagger.tags = ['Frequência']
+// #swagger.description = 'Cadastra uma nova frequência.'
+/* #swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    schema: {
+      clientes_idclientes: 10,
+      dataEntrada: '2024-05-01T10:00:00Z',
+      dataSaida: '2024-05-01T11:00:00Z'
+    }
+} */
+/* #swagger.responses[201] = {
+    description: 'Frequência criada com sucesso.',
+    schema: { mensagem: 'Frequência criada com sucesso', id: 1 }
+} */
+/* #swagger.responses[400] = {
+    description: 'Dados inválidos ou incompletos.',
+    schema: { mensagem: 'Dados incompletos' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno ao cadastrar frequência.',
+    schema: { mensagem: 'Erro interno no servidor' }
+} */
   try {
     const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
 
@@ -203,35 +210,43 @@ routerFrequencia.post('/', async (req, res) => {
 });
 
 
-/**
- * @swagger
- * /frequencia/{id}:
- *   put:
- *     tags: [Frequência]
- *     summary: Atualiza todos os dados de uma frequência
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID da frequência
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           example:
- *             idcliente: 2
- *             data: "2025-05-20"
- *             horaentrada: "08:00"
- *             horasaida: "09:00"
- *     responses:
- *       200:
- *         description: Frequência atualizada com sucesso
- */
+
 
 // Rota para atualizar uma frequência existente
 routerFrequencia.put('/:id', async (req, res) => {
+  // #swagger.tags = ['Frequência']
+// #swagger.description = 'Atualiza completamente uma frequência existente.'
+/* #swagger.parameters['id'] = {
+    in: 'path',
+    description: 'ID da frequência',
+    required: true,
+    type: 'integer'
+} */
+/* #swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    schema: {
+      clientes_idclientes: 10,
+      dataEntrada: '2024-05-01T10:00:00Z',
+      dataSaida: '2024-05-01T11:00:00Z'
+    }
+} */
+/* #swagger.responses[200] = {
+    description: 'Frequência atualizada com sucesso.',
+    schema: { mensagem: 'Frequência atualizada com sucesso' }
+} */
+/* #swagger.responses[400] = {
+    description: 'Dados inválidos.',
+    schema: { mensagem: 'ID inválido.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Frequência não encontrada.',
+    schema: { mensagem: 'Frequência não encontrada' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro ao atualizar frequência.',
+    schema: { mensagem: 'Erro interno no servidor' }
+} */
   const idfrequencia = req.params.id;
   const { clientes_idclientes, dataEntrada, dataSaida } = req.body;
 
@@ -263,31 +278,41 @@ routerFrequencia.put('/:id', async (req, res) => {
   }
 });
 
-/**
- * @swagger
- * /frequencia/{id}:
- *   patch:
- *     tags: [Frequência]
- *     summary: Atualiza parcialmente os dados de uma frequência
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID da frequência
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           example:
- *             horaentrada: "08:30"
- *     responses:
- *       200:
- *         description: Frequência parcialmente atualizada
- */
 
 routerFrequencia.patch('/:id', async (req, res) => {
+  // #swagger.tags = ['Frequência']
+// #swagger.description = 'Atualiza parcialmente os dados de uma frequência.'
+/* #swagger.parameters['id'] = {
+    in: 'path',
+    description: 'ID da frequência',
+    required: true,
+    type: 'integer'
+} */
+/* #swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    schema: {
+      clientes_idclientes: 10,
+      dataEntrada: '2024-05-01T10:00:00Z',
+      dataSaida: '2024-05-01T11:00:00Z'
+    }
+} */
+/* #swagger.responses[200] = {
+    description: 'Frequência atualizada com sucesso (parcial).',
+    schema: { mensagem: 'Frequência atualizada com sucesso (parcial).' }
+} */
+/* #swagger.responses[400] = {
+    description: 'Dados inválidos.',
+    schema: { mensagem: 'ID inválido.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Frequência não encontrada.',
+    schema: { mensagem: 'Frequência não encontrada ou nenhum dado atualizado.' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro interno ao atualizar frequência.',
+    schema: { mensagem: 'Erro interno no servidor' }
+} */
   const idfrequencia = req.params.id;
   const { dataEntrada, dataSaida, clientes_idclientes } = req.body;
 
@@ -319,24 +344,33 @@ routerFrequencia.patch('/:id', async (req, res) => {
   }
 });
 
-/**
- * @swagger
- * /frequencia/{id}:
- *   delete:
- *     tags: [Frequência]
- *     summary: Remove uma frequência por ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       204:
- *         description: Frequência deletada com sucesso
- */
+
 
 routerFrequencia.delete('/:id', async (req, res) => {
+  // #swagger.tags = ['Frequência']
+// #swagger.description = 'Deleta uma frequência pelo ID.'
+/* #swagger.parameters['id'] = {
+    in: 'path',
+    description: 'ID da frequência a ser deletada',
+    required: true,
+    type: 'integer'
+} */
+/* #swagger.responses[200] = {
+    description: 'Frequência deletada com sucesso.',
+    schema: { mensagem: 'Frequência deletada com sucesso.' }
+} */
+/* #swagger.responses[400] = {
+    description: 'ID inválido.',
+    schema: { mensagem: 'ID inválido.' }
+} */
+/* #swagger.responses[404] = {
+    description: 'Frequência não encontrada.',
+    schema: { mensagem: 'Frequência não encontrada.' }
+} */
+/* #swagger.responses[500] = {
+    description: 'Erro ao deletar frequência.',
+    schema: { mensagem: 'Erro interno no servidor.' }
+} */
   const { id } = req.params;
 
   if (isNaN(id) || id <= 0) {

@@ -20,6 +20,32 @@ function validarId(id) {
 
 // GET todos os exercícios
 routerExercicios.get('/', async (req, res) => {
+   /*
+    #swagger.tags = ['Exercícios']
+    #swagger.description = 'Retorna todos os exercícios cadastrados.'
+    #swagger.responses[200] = {
+      description: 'Lista de exercícios retornada com sucesso.',
+      schema: { 
+        status: 'success', 
+        dados: [{
+          id: 1,
+          quantDeSeries: 3,
+          quantDeRepeticoes: 12,
+          diaDaSemana: "Segunda",
+          parteDoCorpo: "Peito",
+          clientes_idclientes: 1,
+          funcionarios_idfuncionarios: 2,
+          funcionarios_formacao_idformacao: 1,
+          equipamentos_idequipamentos: 5,
+          equipamentos_marca_idmarca: 3
+        }]
+      }
+    }
+    #swagger.responses[500] = {
+      description: 'Erro interno ao buscar exercícios.',
+      schema: { status: 'error', mensagem: 'Erro ao buscar exercícios' }
+    }
+  */
   try {
     const resultado = await apresentarExercicios();
     return res.status(200).json({ status: 'success', dados: resultado });
@@ -31,6 +57,33 @@ routerExercicios.get('/', async (req, res) => {
 
 // GET exercício por ID
 routerExercicios.get('/:id', async (req, res) => {
+  /*
+    #swagger.tags = ['Exercícios']
+    #swagger.description = 'Retorna um exercício específico pelo ID.'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'ID do exercício a ser buscado.',
+      required: true,
+      type: 'string',
+      example: '1'
+    }
+    #swagger.responses[200] = {
+      description: 'Exercício encontrado e retornado com sucesso.',
+      schema: { status: 'success', dados: { objeto exercício } 
+    }
+    #swagger.responses[400] = {
+      description: 'ID inválido.',
+      schema: { status: 'error', mensagem: 'ID inválido' }
+    }
+    #swagger.responses[404] = {
+      description: 'Exercício não encontrado.',
+      schema: { status: 'error', mensagem: 'Exercício não encontrado' }
+    }
+    #swagger.responses[500] = {
+      description: 'Erro interno ao buscar exercício.',
+      schema: { status: 'error', mensagem: 'Erro ao buscar exercício' }
+    }
+  */
   const { id } = req.params;
 
   if (!validarId(id)) {
@@ -52,6 +105,38 @@ routerExercicios.get('/:id', async (req, res) => {
 
 // POST - Adicionar exercício
 routerExercicios.post('/', async (req, res) => {
+   /*
+    #swagger.tags = ['Exercícios']
+    #swagger.description = 'Adiciona um novo exercício.'
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Objeto com os dados do exercício.',
+      required: true,
+      schema: {
+        quantDeSeries: 3,
+        quantDeRepeticoes: 12,
+        diaDaSemana: "Segunda",
+        parteDoCorpo: "Peito",
+        clientes_idclientes: 1,
+        funcionarios_idfuncionarios: 2,
+        funcionarios_formacao_idformacao: 1,
+        equipamentos_idequipamentos: 5,
+        equipamentos_marca_idmarca: 3
+      }
+    }
+    #swagger.responses[201] = {
+      description: 'Exercício cadastrado com sucesso.',
+      schema: { status: 'success', mensagem: 'Exercício cadastrado com sucesso!' }
+    }
+    #swagger.responses[400] = {
+      description: 'Dados inválidos ou combinação funcionário/ formação inexistente.',
+      schema: { status: 'error', mensagem: 'Mensagem de erro detalhada' }
+    }
+    #swagger.responses[500] = {
+      description: 'Erro interno ao cadastrar exercício.',
+      schema: { status: 'error', mensagem: 'Erro ao cadastrar exercício' }
+    }
+  */
   const {
     quantDeSeries,
     quantDeRepeticoes,
@@ -107,6 +192,43 @@ routerExercicios.post('/', async (req, res) => {
 
 // PATCH - Atualização parcial
 routerExercicios.patch('/:id', async (req, res) => {
+  /*
+    #swagger.tags = ['Exercícios']
+    #swagger.description = 'Atualiza parcialmente os dados de um exercício pelo ID.'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'ID do exercício a ser atualizado.',
+      required: true,
+      type: 'string',
+      example: '1'
+    }
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Campos que deseja atualizar (parcial).',
+      required: true,
+      schema: {
+        quantDeSeries: 4,
+        quantDeRepeticoes: 10,
+        // campos opcionais
+      }
+    }
+    #swagger.responses[200] = {
+      description: 'Exercício atualizado com sucesso.',
+      schema: { status: 'success', mensagem: 'Exercício atualizado com sucesso!' }
+    }
+    #swagger.responses[400] = {
+      description: 'Dados inválidos ou combinação funcionário/ formação inexistente.',
+      schema: { status: 'error', mensagem: 'Mensagem de erro detalhada' }
+    }
+    #swagger.responses[404] = {
+      description: 'Exercício não encontrado.',
+      schema: { status: 'error', mensagem: 'Exercício não encontrado' }
+    }
+    #swagger.responses[500] = {
+      description: 'Erro interno ao atualizar exercício.',
+      schema: { status: 'error', mensagem: 'Erro ao atualizar exercício' }
+    }
+  */
   const { id } = req.params;
 
   if (!validarId(id)) {
@@ -179,6 +301,49 @@ routerExercicios.patch('/:id', async (req, res) => {
 
 // PUT - Atualização total
 routerExercicios.put('/:id', async (req, res) => {
+   /*
+    #swagger.tags = ['Exercícios']
+    #swagger.description = 'Atualiza totalmente um exercício pelo ID.'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'ID do exercício a ser atualizado.',
+      required: true,
+      type: 'string',
+      example: '1'
+    }
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Objeto com todos os dados atualizados do exercício.',
+      required: true,
+      schema: {
+        quantDeSeries: 4,
+        quantDeRepeticoes: 10,
+        diaDaSemana: "Terça",
+        parteDoCorpo: "Costas",
+        clientes_idclientes: 1,
+        funcionarios_idfuncionarios: 2,
+        funcionarios_formacao_idformacao: 1,
+        equipamentos_idequipamentos: 5,
+        equipamentos_marca_idmarca: 3
+      }
+    }
+    #swagger.responses[200] = {
+      description: 'Exercício atualizado com sucesso.',
+      schema: { status: 'success', mensagem: 'Exercício atualizado com sucesso!' }
+    }
+    #swagger.responses[400] = {
+      description: 'Dados inválidos ou combinação funcionário/ formação inexistente.',
+      schema: { status: 'error', mensagem: 'Mensagem de erro detalhada' }
+    }
+    #swagger.responses[404] = {
+      description: 'Exercício não encontrado.',
+      schema: { status: 'error', mensagem: 'Exercício não encontrado' }
+    }
+    #swagger.responses[500] = {
+      description: 'Erro interno ao atualizar exercício.',
+      schema: { status: 'error', mensagem: 'Erro ao atualizar exercício' }
+    }
+  */
   const { id } = req.params;
 
   if (!validarId(id)) {
@@ -245,6 +410,34 @@ routerExercicios.put('/:id', async (req, res) => {
 
 // DELETE
 routerExercicios.delete('/:id', async (req, res) => {
+   /*
+    #swagger.tags = ['Exercícios']
+    #swagger.description = 'Remove um exercício pelo ID.'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'ID do exercício a ser deletado.',
+      required: true,
+      type: 'string',
+      example: '1'
+    }
+    #swagger.responses[200] = {
+      description: 'Exercício deletado com sucesso.',
+      schema: { status: 'success', mensagem: 'Exercício deletado com sucesso!' }
+    }
+    #swagger.responses[400] = {
+      description: 'ID inválido.',
+      schema: { status: 'error', mensagem: 'ID inválido' }
+    }
+    #swagger.responses[404] = {
+      description: 'Exercício não encontrado.',
+      schema: { status: 'error', mensagem: 'Exercício não encontrado' }
+    }
+    #swagger.responses[500] = {
+      description: 'Erro interno ao deletar exercício.',
+      schema: { status: 'error', mensagem: 'Erro ao deletar exercício' }
+    }
+  */
+
   const { id } = req.params;
 
   if (!validarId(id)) {

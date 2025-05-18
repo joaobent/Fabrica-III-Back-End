@@ -8,6 +8,36 @@ import { editarMarca } from '../servicos/marcaServicos/editar.js';
 const routerMarca = express.Router();
 
 routerMarca.put('/:id', async (req, res) => {
+    /* 
+  #swagger.tags = ['Marcas']
+  #swagger.description = 'Edita o nome de uma marca existente.'
+  #swagger.parameters['id'] = {
+    in: 'path',
+    description: 'ID da marca.',
+    required: true,
+    type: 'integer',
+    example: 2
+  }
+  #swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    schema: {
+      nome: 'Nova Marca'
+    }
+  }
+  #swagger.responses[200] = {
+    description: 'Marca editada com sucesso.',
+    schema: { status: 'success', mensagem: 'Marca editada com sucesso!' }
+  }
+  #swagger.responses[400] = {
+    description: 'ID inválido ou nome inválido.',
+    schema: { status: 'error', mensagem: 'ID inválido ou nome da marca é obrigatório' }
+  }
+  #swagger.responses[404] = {
+    description: 'Marca não encontrada.',
+    schema: { status: 'error', mensagem: 'Marca não encontrada' }
+  }
+*/
     const { id } = req.params;
     const { nome } = req.body;
 
@@ -33,6 +63,25 @@ routerMarca.put('/:id', async (req, res) => {
 });
 
 routerMarca.post('/', async (req, res) => {
+    /* 
+  #swagger.tags = ['Marcas']
+  #swagger.description = 'Cadastra uma nova marca.'
+  #swagger.parameters['body'] = {
+    in: 'body',
+    required: true,
+    schema: {
+      nome: 'Nova Marca'
+    }
+  }
+  #swagger.responses[201] = {
+    description: 'Marca cadastrada com sucesso.',
+    schema: { status: 'success', mensagem: 'Marca cadastrada com sucesso!' }
+  }
+  #swagger.responses[400] = {
+    description: 'Nome inválido.',
+    schema: { status: 'error', mensagem: 'Nome da marca é obrigatório.' }
+  }
+*/
     const { nome } = req.body;
     if (!nome) {
         return res.status(400).json({ status: 'error', mensagem: 'Nome da marca é obrigatório.' });
@@ -48,6 +97,31 @@ routerMarca.post('/', async (req, res) => {
 });
 
 routerMarca.get('/', async (req, res) => {
+    /* 
+  #swagger.tags = ['Marcas']
+  #swagger.description = 'Lista todas as marcas ou busca por nome.'
+  #swagger.parameters['nome'] = {
+    in: 'query',
+    description: 'Nome da marca para busca.',
+    required: false,
+    type: 'string',
+    example: 'Smart Fit'
+  }
+  #swagger.responses[200] = {
+    description: 'Lista de marcas ou resultado da busca.',
+    schema: {
+      status: 'success',
+      dados: [
+        { id: 1, nome: 'Smart Fit' },
+        { id: 2, nome: 'TechnoGym' }
+      ]
+    }
+  }
+  #swagger.responses[404] = {
+    description: 'Marca com esse nome não encontrada.',
+    schema: { status: 'error', mensagem: 'Marca com esse nome não encontrada' }
+  }
+*/
     const { nome } = req.query;
 
     const resultado = nome
@@ -62,6 +136,34 @@ routerMarca.get('/', async (req, res) => {
 });
 
 routerMarca.get('/:id', async (req, res) => {
+    /* 
+  #swagger.tags = ['Marcas']
+  #swagger.description = 'Busca uma marca pelo ID.'
+  #swagger.parameters['id'] = {
+    in: 'path',
+    description: 'ID da marca.',
+    required: true,
+    type: 'integer',
+    example: 1
+  }
+  #swagger.responses[200] = {
+    description: 'Marca encontrada.',
+    schema: {
+      status: 'success',
+      dados: [
+        { id: 1, nome: 'Smart Fit' }
+      ]
+    }
+  }
+  #swagger.responses[400] = {
+    description: 'ID inválido.',
+    schema: { status: 'error', mensagem: 'ID inválido' }
+  }
+  #swagger.responses[404] = {
+    description: 'Marca não encontrada.',
+    schema: { status: 'error', mensagem: 'Marca não encontrada' }
+  }
+*/
     const { id } = req.params;
 
     if (isNaN(id)) {
@@ -77,6 +179,29 @@ routerMarca.get('/:id', async (req, res) => {
 });
 
 routerMarca.delete('/:id', async (req, res) => {
+    /* 
+  #swagger.tags = ['Marcas']
+  #swagger.description = 'Deleta uma marca pelo ID.'
+  #swagger.parameters['id'] = {
+    in: 'path',
+    description: 'ID da marca.',
+    required: true,
+    type: 'integer',
+    example: 2
+  }
+  #swagger.responses[200] = {
+    description: 'Marca deletada com sucesso.',
+    schema: { status: 'success', mensagem: 'Marca deletada com sucesso!' }
+  }
+  #swagger.responses[400] = {
+    description: 'ID inválido.',
+    schema: { status: 'error', mensagem: 'ID inválido' }
+  }
+  #swagger.responses[404] = {
+    description: 'Marca não encontrada.',
+    schema: { status: 'error', mensagem: 'Marca não encontrada' }
+  }
+*/
     const { id } = req.params;
 
     if (isNaN(id)) {
