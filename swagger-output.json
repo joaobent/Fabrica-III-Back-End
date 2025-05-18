@@ -331,9 +331,9 @@
     "/endereco/{id}": {
       "get": {
         "tags": [
-          "Carro"
+          "Endereço"
         ],
-        "description": "Retorna a imagem de um carro pelo ID da imagem",
+        "description": "Busca o endereço pelo ID do funcionário.",
         "parameters": [
           {
             "name": "id",
@@ -341,33 +341,36 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "idImagem",
-            "in": "path",
-            "description": "ID da imagem do carro",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            },
+            "description": "ID do funcionário para buscar o endereço"
           }
         ],
         "responses": {
           "200": {
-            "description": "Imagem do carro encontrada com sucesso",
+            "description": "Endereço encontrado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Endereco"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Endereco"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Endereço não encontrado.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "type": {
+                    "mensagem": {
                       "type": "string",
-                      "example": "string"
-                    },
-                    "format": {
-                      "type": "string",
-                      "example": "binary"
+                      "example": "Endereço não encontrado."
                     }
                   },
                   "xml": {
@@ -379,13 +382,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "type": {
+                    "mensagem": {
                       "type": "string",
-                      "example": "string"
-                    },
-                    "format": {
-                      "type": "string",
-                      "example": "binary"
+                      "example": "Endereço não encontrado."
                     }
                   },
                   "xml": {
@@ -395,16 +394,46 @@
               }
             }
           },
-          "404": {
-            "description": "Imagem não encontrada"
-          },
           "500": {
-            "description": "Erro interno ao buscar a imagem"
+            "description": "Erro interno ao buscar endereço.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro ao buscar endereço."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Erro ao buscar endereço."
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Endereço"
+        ],
+        "description": "Deleta um endereço pelo ID.",
         "parameters": [
           {
             "name": "id",
@@ -554,7 +583,10 @@
     },
     "/endereco/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Endereço"
+        ],
+        "description": "Retorna todos os endereços cadastrados.",
         "responses": {
           "200": {
             "description": "Lista de endereços retornada com sucesso.",
