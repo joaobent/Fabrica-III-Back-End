@@ -15,6 +15,31 @@ const app = express();
 // ESSA LINHA É ESSENCIAL:
 app.use(express.json());
 
+/**
+ * @swagger
+ * /frequencia:
+ *   get:
+ *     summary: Retorna todas as frequências
+ *     responses:
+ *       200:
+ *         description: Lista de frequências
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   idfrequencia:
+ *                     type: integer
+ *                   dataEntrada:
+ *                     type: string
+ *                   dataSaida:
+ *                     type: string
+ *                   clientes_idclientes:
+ *                     type: integer
+ */
+
 routerFrequencia.get('/', async (req, res) => {
   const { id } = req.params;
 
@@ -31,7 +56,7 @@ routerFrequencia.get('/', async (req, res) => {
     }
 });
 
-// Rota para buscar uma frequência por ID do cliente
+// Rota para buscar uma frequência por ID
 routerFrequencia.get('/:id', async (req, res) => {
     const { id } = req.params;
 

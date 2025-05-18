@@ -2,6 +2,13 @@
 
 import express from 'express';
 // import pool from './servico/conexao.js';
+// const swaggerUi = require('swagger-ui-express');
+// import swaggerFile from './swagger-output.json' assert { type: 'json' };
+
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+// import { setupSwagger } from './swagger.js';
+// setupSwagger(app);
 
 const app = express();
 
